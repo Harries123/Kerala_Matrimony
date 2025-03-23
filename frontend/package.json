@@ -33,7 +33,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://Harries123.github.io/Kerala_Matrimony",
   "eslintConfig": {
     "extends": [
       "react-app",
