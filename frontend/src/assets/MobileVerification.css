@@ -1,0 +1,115 @@
+
+.mobile-verification-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header */
+  .mobile-verification-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Box Container */
+  .mobile-verification-box {
+
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Input Fields */
+  .mobile-verification-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #939191;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Buttons */
+  .mobile-verification-btn {
+    width: 100%;
+    background-color: #fcac36;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .mobile-verification-btn:hover {
+    background-color: #846308;
+  }
+  
+  /* Resend Code */
+  .resend-code {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .resend-code span {
+    color: #573a00;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .resend-code span:hover {
+    text-decoration: underline;
+  }
+  
+  /* Alternate Methods */
+  .alternate-methods {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .alternate-methods span {
+    color: #784a00;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .alternate-methods span:hover {
+    text-decoration: underline;
+  }
+  
+  /* Captcha */
+  .mobile-verification-captcha-box {
+    background-color: #e0e0e0;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 3px;
+  }
+  
+  .mobile-verification-captcha-text {
+    font-family: "Courier New", monospace;
+    display: inline-block;
+  }
+  
+  /* Footer */
+  .mobile-verification-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+  }
+  

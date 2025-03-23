@@ -1,0 +1,72 @@
+.matrimony-info {
+    text-align: center;
+    padding: 0px;
+    position: absolute; /* Change to absolute for precise positioning */
+    top: 0; /* Adjust this value to move it higher */
+    left: 24%;
+    transform: translateX(-50%); /* Centers it horizontally */
+    width: 100%;
+    font-weight: 900;
+    font-size: 20px;
+    z-index: 40; /* Keeps it above background */
+}
+
+/* Matrimony Title & Subtitle */
+.matrimony-title,
+.matrimony-subtitle {
+    margin-top: 0px; /* Reset previous negative margins */
+    margin-bottom: 10px; /* Keep spacing below */
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    position: relative;
+    z-index: 10;
+}
+
+
+
+
+
+
+.matrimony-subtitle {
+    font-size: 1.2rem;
+    color: black;
+    margin-top: 15px;
+}
+
+/* Headings inside matrimony info */
+.matrimony-info h4 {
+    font-weight: 850;
+    font-size: 30px;
+}
+
+.matrimony-info h6 {
+    padding-top: 20px;
+}
+
+/* Background Overlay */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .matrimony-info {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .matrimony-title {
+        font-size: 2rem;
+    }
+
+    .matrimony-subtitle {
+        font-size: 1rem;
+    }
+}

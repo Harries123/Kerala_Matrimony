@@ -1,0 +1,51 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff774d;
+    width: 100%;  /* Full width */
+    max-width: 1400px;  /* Standard max width for better layout on large screens */
+    margin: 20px auto;  /* Adds vertical spacing and centers the navbar */
+    padding: 12px 100px;  /* Standard website navbar padding */
+    color: white;
+    font-family: Arial, sans-serif;
+    border-radius: 8px; /* Optional: Adds rounded edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a premium look */
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Increased gap for a balanced look */
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links li:hover {
+    color: #ffd700; 
+}
+
+/* Profile Icon */
+.profile-icon {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.profile-icon:hover {
+    color: #ffd700;
+}

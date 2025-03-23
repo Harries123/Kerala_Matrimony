@@ -1,0 +1,57 @@
+.profile-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .sidebar h3 {
+    text-align: center;
+    color: #d9534f;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .profile-content {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+  }
+  
+  .profile-content label {
+    font-weight: bold;
+  }
+  
+  .profile-content input,
+  .profile-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background: #d9534f;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
