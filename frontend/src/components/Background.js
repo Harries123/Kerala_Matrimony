@@ -85,3 +85,5 @@ const Background = () => {
 };
 
 export default Background;
+
+//ithoke nee cheythenn parayumbo oru vishwasakaruav oho njn enik ariyavva bhashel code chythit structyre chyth
