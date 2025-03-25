@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/ProfessionalDetails.css"; // Importing the CSS file
+import "../assets/ProfessionalDetails.css"; 
 
 const ProfessionalDetails = () => {
   const [education, setEducation] = useState("Higher Secondary School / High School");

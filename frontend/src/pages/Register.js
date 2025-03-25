@@ -49,7 +49,7 @@ const handleRegister = () => {
         {/* Subtitle */}
         <Typography variant="h6" className="form-title">
           Find your perfect match
-        </Typography>
+        </Typography> 
 
         <Grid container spacing={2}>
           {/* Profile For Dropdown */}
