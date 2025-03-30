@@ -1,7 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import "../assets/MatrimonyForm.css";
+import { useNavigate } from "react-router-dom";
 
 const MatrimonyForm = () => {
+  const navigate = useNavigate();
+  const [caste, setCaste] = useState("Select");
+
+  const handleContinue = () => {
+    if (caste === "Select") {
+      alert("Please select your caste before continuing.");
+      return;
+    }
+    navigate("/matrimony-details");
+  };
+
   return (
     <div className="container">
       {/* Main Card */}
@@ -19,8 +31,7 @@ const MatrimonyForm = () => {
         {/* Right Section - Form */}
         <div className="right-section">
           {/* Progress Completion */}
-          <span className="progress-text">Great! You have completed <strong>40%</strong></span>
-
+          <span className="progress-text1">Great! You have completed <strong>40%</strong></span>
 
           <h2 className="form-title">
             Religion details can help us find the right match
@@ -29,13 +40,13 @@ const MatrimonyForm = () => {
           {/* Form Fields */}
           <div className="form-group">
             <label>Caste</label>
-            <select>
-              <option>Select</option>
-              <option>Brahmin</option>
-              <option>Nair</option>
-              <option>Ezhava</option>
-              <option>Muslim</option>
-              <option>Christian</option>
+            <select value={caste} onChange={(e) => setCaste(e.target.value)}>
+              <option value="Select">Select</option>
+              <option value="Brahmin">Brahmin</option>
+              <option value="Nair">Nair</option>
+              <option value="Ezhava">Ezhava</option>
+              <option value="Muslim">Muslim</option>
+              <option value="Christian">Christian</option>
             </select>
           </div>
 
@@ -47,14 +58,14 @@ const MatrimonyForm = () => {
           <div className="form-group">
             <label>Subcaste (Optional)</label>
             <select>
-              <option>Select</option>
-              <option>Subcaste 1</option>
-              <option>Subcaste 2</option>
+              <option value="Select">Select</option>
+              <option value="Subcaste 1">Subcaste 1</option>
+              <option value="Subcaste 2">Subcaste 2</option>
             </select>
           </div>
 
           {/* Continue Button */}
-          <button className="continue-btn">Continue</button>
+          <button onClick={handleContinue} className="continue-btn">Continue</button>
         </div>
       </div>
       

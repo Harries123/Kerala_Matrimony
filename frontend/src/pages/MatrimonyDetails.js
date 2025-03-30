@@ -1,25 +1,64 @@
 import React, { useState } from "react";
 import "../assets/MatrimonyDetails.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const MatrimonyDetails = () => {
-  const [progress, setProgress] = useState(60);
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [familyStatus, setFamilyStatus] = useState("");
-  const [familyType, setFamilyType] = useState("");
-  const [familyValues, setFamilyValues] = useState("");
-  const [disability, setDisability] = useState("None");
+  const navigate = useNavigate();
 
-  // Function to handle single selection buttons
-  const handleSelection = (setter, value) => {
-    setter(value);
+  const [progress] = useState(60);
+  const [formData, setFormData] = useState({
+    maritalStatus: "",
+    familyStatus: "",
+    familyType: "",
+    familyValues: "",
+    disability: "None",
+    height: "",
+  });
+
+  const handleSelection = (key, value) => {
+    setFormData({ ...formData, [key]: value });
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, height: e.target.value });
+  };
+
+  const handleRegister = async () => {
+    const { maritalStatus, familyStatus, familyType, familyValues, height } = formData;
+
+    if (!maritalStatus || !familyStatus || !familyType || !familyValues || !height) {
+      alert("Please fill all fields before continuing.");
+      return;
+    }
+
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("User ID not found. Please register first.");
+        return;
+      }
+
+      const response = await axios.post(
+        "http://localhost:5000/api/users/matrimony-details",
+        { userId, ...formData }
+      );
+
+      if (response.status === 200) {
+        console.log("User Matrimony Data Saved ✅", response.data);
+        navigate("/professional-details");
+      }
+    } catch (error) {
+      console.error(
+        "Matrimony Details Error:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
     <div className="container">
-      {/* Main Card */}
       <div className="form-card">
-        
-        {/* Left Section - Info Box */}
         <div className="left-section">
           <div className="icon">💚</div>
           <p className="info-text">
@@ -28,10 +67,8 @@ const MatrimonyDetails = () => {
           </p>
         </div>
 
-        {/* Right Section - Form */}
         <div className="right-section">
-          {/* Progress Completion Text */}
-          <span className="progress-text">
+          <span className="progress-text2">
             Great! You have completed <strong>{progress}%</strong>
           </span>
 
@@ -41,27 +78,29 @@ const MatrimonyDetails = () => {
           <div className="form-group">
             <label>Marital Status</label>
             <div className="options">
-              {["Never Married", "Widowed", "Divorced", "Awaiting Divorce"].map((status) => (
-                <button
-                  key={status}
-                  className={maritalStatus === status ? "selected" : ""}
-                  onClick={() => handleSelection(setMaritalStatus, status)}
-                >
-                  {status}
-                </button>
-              ))}
+              {["Never Married", "Widowed", "Divorced", "Awaiting Divorce"].map(
+                (status) => (
+                  <button
+                    key={status}
+                    className={formData.maritalStatus === status ? "selected" : ""}
+                    onClick={() => handleSelection("maritalStatus", status)}
+                  >
+                    {status}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
-          {/* Height Selection */}
+          {/* Height */}
           <div className="form-group">
             <label>Height</label>
-            <select>
-              <option>Feet / Inches</option>
-              <option>Below 5 feet</option>
-              <option>5'0" - 5'5"</option>
-              <option>5'6" - 6'0"</option>
-              <option>Above 6'0"</option>
+            <select value={formData.height} onChange={handleChange}>
+              <option value="">Feet / Inches</option>
+              <option value="Below 5 feet">Below 5 feet</option>
+              <option value="5'0 - 5'5">5'0" - 5'5"</option>
+              <option value="5'6 - 6'0">5'6" - 6'0"</option>
+              <option value="Above 6'0">Above 6'0"</option>
             </select>
           </div>
 
@@ -69,15 +108,17 @@ const MatrimonyDetails = () => {
           <div className="form-group">
             <label>Family Status</label>
             <div className="options">
-              {["Middle Class", "Upper Middle Class", "High Class", "Rich / Affluent"].map((status) => (
-                <button
-                  key={status}
-                  className={familyStatus === status ? "selected" : ""}
-                  onClick={() => handleSelection(setFamilyStatus, status)}
-                >
-                  {status}
-                </button>
-              ))}
+              {["Middle Class", "Upper Middle Class", "High Class", "Rich / Affluent"].map(
+                (status) => (
+                  <button
+                    key={status}
+                    className={formData.familyStatus === status ? "selected" : ""}
+                    onClick={() => handleSelection("familyStatus", status)}
+                  >
+                    {status}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
@@ -88,8 +129,8 @@ const MatrimonyDetails = () => {
               {["Joint", "Nuclear"].map((type) => (
                 <button
                   key={type}
-                  className={familyType === type ? "selected" : ""}
-                  onClick={() => handleSelection(setFamilyType, type)}
+                  className={formData.familyType === type ? "selected" : ""}
+                  onClick={() => handleSelection("familyType", type)}
                 >
                   {type}
                 </button>
@@ -104,8 +145,8 @@ const MatrimonyDetails = () => {
               {["Orthodox", "Traditional", "Moderate", "Liberal"].map((value) => (
                 <button
                   key={value}
-                  className={familyValues === value ? "selected" : ""}
-                  onClick={() => handleSelection(setFamilyValues, value)}
+                  className={formData.familyValues === value ? "selected" : ""}
+                  onClick={() => handleSelection("familyValues", value)}
                 >
                   {value}
                 </button>
@@ -113,15 +154,15 @@ const MatrimonyDetails = () => {
             </div>
           </div>
 
-          {/* Any Disability */}
+          {/* Disability */}
           <div className="form-group">
             <label>Any Disability</label>
             <div className="options">
               {["None", "Physically Challenged"].map((option) => (
                 <button
                   key={option}
-                  className={disability === option ? "selected" : ""}
-                  onClick={() => handleSelection(setDisability, option)}
+                  className={formData.disability === option ? "selected" : ""}
+                  onClick={() => handleSelection("disability", option)}
                 >
                   {option}
                 </button>
@@ -129,8 +170,9 @@ const MatrimonyDetails = () => {
             </div>
           </div>
 
-          {/* Continue Button */}
-          <button className="continue-btn">Continue</button>
+          <button onClick={handleRegister} className="continue-btn">
+            Continue
+          </button>
         </div>
       </div>
     </div>

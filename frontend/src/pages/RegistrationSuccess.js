@@ -10,11 +10,13 @@ import {
 } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import "../assets/registrationSuccess.css"; 
+import "../assets/registrationSuccess.css";
 import logo from "../assets/images/logo.jpeg";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegistrationSuccess = () => {
+  const navigate = useNavigate();
   const [dob, setDob] = useState(null);
   const [religion, setReligion] = useState("");
   const [motherTongue, setMotherTongue] = useState("");
@@ -22,8 +24,13 @@ const RegistrationSuccess = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+
+
   const religions = ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Parsi", "Jewish", "Other"];
   const motherTongues = ["English", "Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Malayalam"];
+
+
+
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -32,6 +39,40 @@ const RegistrationSuccess = () => {
     setPasswordError(passwordRegex.test(value) ? "" : "Password must be at least 6 characters, including numbers and letters");
   };
 
+  const userId = localStorage.getItem("userId");
+if (!userId) {
+  alert("User ID not found. Please register first.");
+  return;
+}
+
+
+  const handleContinue = async () => {
+
+
+    if (!dob || !religion || !motherTongue || !email || !password) {
+      alert("Please fill all fields before continuing.");
+      return;
+    }
+  
+    try {
+      const response = await axios.put(`http://localhost:5000/api/users/update/${userId}`, {
+
+        dob,
+        religion,
+        motherTongue,
+        email,
+        password
+      });
+  
+      console.log("Registration Success:", response.data);
+      navigate("/matrimony-form");
+    } catch (error) {
+      console.error("Registration error:", error.response?.data || error.message);
+      alert(error.response?.data?.error || "Registration failed.");
+    }
+  };
+  
+
   return (
     <Box className="registration-container">
       <Typography variant="h6" className="progress-indicator">
@@ -39,9 +80,7 @@ const RegistrationSuccess = () => {
       </Typography>
 
       <Box className="registration-header">
-        
-      <img src={logo} alt="Kerala Matrimony" className="brand-logo" />
-
+        <img src={logo} alt="Kerala Matrimony" className="brand-logo" />
       </Box>
 
       <Grid container spacing={2} className="registration-content">
@@ -84,12 +123,22 @@ const RegistrationSuccess = () => {
           </Select>
 
           <TextField fullWidth label="Email ID" value={email} onChange={(e) => setEmail(e.target.value)} className="form-field" />
-          <TextField fullWidth label="Password" type="password" value={password} onChange={handlePasswordChange} className="form-field" error={!!passwordError} helperText={passwordError} />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="form-field"
+            error={!!passwordError}
+            helperText={passwordError}
+          />
 
-          <Button variant="contained" className="submit-button">
+          <Button variant="contained" className="submit-button" onClick={handleContinue}>
             Continue
-          </Button>
+          </Button> 
 
+          
           <Typography variant="caption" className="help-text">
             Your date of birth helps us find the perfect match
           </Typography>

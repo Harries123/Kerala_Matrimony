@@ -7,9 +7,10 @@ import '../assets/login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    loginName: '',
+    phone: '',
     password: '',
   });
+  
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -43,14 +44,15 @@ const Login = () => {
         <form className="login-form" onSubmit={handleSubmit}>
           {/* Username */}
           <TextField
-            fullWidth
-            label="Username"
-            name="loginName"
-            value={formData.loginName}
-            onChange={handleChange}
-            required
-            margin="normal"
-          />
+  fullWidth
+  label="Phone"
+  name="phone"
+  value={formData.phone}
+  onChange={handleChange}
+  required
+  margin="normal"
+/>
+
 
           {/* Password */}
           <TextField

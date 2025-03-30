@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "../assets/ProfessionalDetails.css"; 
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import axios from "axios";
+
 
 const ProfessionalDetails = () => {
+
+const navigate = useNavigate(); // Initialize useNavigate
+
   const [education, setEducation] = useState("Higher Secondary School / High School");
   const [employment, setEmployment] = useState("India");
   const [occupation, setOccupation] = useState("Not Working");
@@ -10,6 +16,8 @@ const ProfessionalDetails = () => {
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [residentStatus, setResidentStatus] = useState("");
   const [progress, setProgress] = useState(80);
+  const [message, setMessage] = useState("");
+
 
   const employmentOptions = ["Government/PSU", "Private", "Business", "Defence", "Self Employed", "Not working"];
   const residentOptions = ["Permanent Resident", "Work Permit", "Student Visa", "Temporary Visa"];
@@ -34,12 +42,39 @@ const ProfessionalDetails = () => {
     "Other",
   ];
 
+
+  const handleSubmit = async () => {
+    try {
+      console.log("Submitting professional details...");
+      const response = await axios.post("http://localhost:5000/api/users/professional-details", {
+        education,
+        employment,
+        occupation,
+        citizenship: isOtherSelected ? customCitizenship : citizenship, 
+        residentStatus,
+      });
+  
+      console.log("Response received:", response);
+  
+      if (response.status === 200) {
+        console.log("Navigation to /verify");
+        navigate("/verify"); // ✅ Ensure navigate is inside the if condition
+      } else {
+        console.log("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error updating professional details:", error);
+      setMessage("Failed to update details. Please try again.");
+    }
+  };
+  
+
   const handleCitizenshipChange = (e) => {
     const selectedValue = e.target.value;
     setCitizenship(selectedValue);
     setIsOtherSelected(selectedValue === "Other");
     if (selectedValue !== "Other") {
-      setCustomCitizenship(""); // Reset custom citizenship if "Other" is deselected
+      setCustomCitizenship(""); 
     }
   };
 
@@ -57,8 +92,8 @@ const ProfessionalDetails = () => {
   };
 
   return (
-    <div className="container1">
-      <div className="progress-text">
+    <div className="container3">
+      <div className="progress-text5">
         Great! You have completed <span className="progress-percentage">{progress}%</span>
       </div>
 
@@ -112,7 +147,7 @@ const ProfessionalDetails = () => {
 
           {/* Bride's Location */}
           <div className="form-group">
-            <label>Bride's Current Location</label>
+            <label>Current Location</label>
             <select>
     <option>Select</option>
     {[
@@ -180,8 +215,8 @@ const ProfessionalDetails = () => {
           </div>
 
           {/* Continue Button */}
-          <button className="continue-button">Continue</button>
-        </div>
+          <button className="continue-button" onClick={handleSubmit}>Continue</button>
+          </div>
       </div>
     </div>
   );

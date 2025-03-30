@@ -1,52 +1,36 @@
 /* Profile Form */
 .profile-form {
-  width: 100%;
-  max-width: 400px; /* Matches the UI */
-  margin: 0 auto; /* Centers it with space from the top */
+  max-width: 400px;
+  margin: 0 auto;
   padding: 50px;
-  border-radius: 55px; /* Reduced border radius */
+  border-radius: 55px;
   background: white;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
-  position: relative; /* Ensure proper stacking */
-}
-
-.inside-header {
-  height: 60px; /* Adjust as needed */
+  position: relative;
 }
 
 /* Green Header */
 .profile-form .inside-header {
-  width: 100%; /* Full width */
-  padding: 0px 0; /* Balanced padding */
-  background-color: #63b35c; /* Green background */
-  border-radius: 6px ; /* Smooth top edges */
+  width: 100%;
+  background-color: #63b35c;
+  border-radius: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
   color: white;
-  position: absolute; /* Fix overlap issue */
+  font-weight: bold;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* Form Content */
-.profile-form-content {
-  padding: 20px; /* Proper spacing */
-}
-
-
-
 /* Form Subtitle */
-.form-title {
+.form-title1{
   font-size: 16px;
   font-weight: bold;
-margin-top: 25px;
-padding-top: 50px;
+  margin-top: 15px;
+  padding-top: 30px;
 }
 
 /* Input Fields */
@@ -84,11 +68,6 @@ padding-top: 50px;
   border-radius: 5px;
   margin-top: 20px;
   text-transform: uppercase;
-}
-
-/* Arrow Icon */
-.arrow-icon {
-  margin-left: 5px;
 }
 
 /* Terms & Conditions */
