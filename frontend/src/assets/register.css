@@ -23,12 +23,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 15px;
-  font-size: 18px;
 }
 
 /* Form Subtitle */
-.form-title1 {
+.form-title1{
   font-size: 16px;
   font-weight: bold;
   margin-top: 15px;
@@ -39,38 +37,24 @@
 .input-field {
   border-radius: 5px;
   background-color: white;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  width: 100%;
 }
 
 /* Phone Input Container */
 .phone-container {
   display: flex;
   gap: 5px;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 /* Country Code Select */
 .country-select {
-  width: 30%;
+  width: 25%;
   border-radius: 5px;
   background: white;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
 }
 
 /* Phone Number Input */
 .phone-input {
-  width: 68%;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: 73%;
 }
 
 /* Register Button */
@@ -84,13 +68,6 @@
   border-radius: 5px;
   margin-top: 20px;
   text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.register-button:hover {
-  background-color: #d06a17;
 }
 
 /* Terms & Conditions */
@@ -106,32 +83,3 @@
   font-weight: bold;
 }
 
-/* 📱 Responsive for Small Screens (Android) */
-@media screen and (max-width: 768px) {
-  .profile-form {
-    max-width: 95%;
-    padding: 30px 15px;
-  }
-
-  .inside-header {
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  .form-title1 {
-    font-size: 14px;
-    padding-top: 40px;
-  }
-
-  .input-field, 
-  .phone-input, 
-  .country-select {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  .register-button {
-    font-size: 14px;
-    padding: 12px;
-  }
-}
