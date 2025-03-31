@@ -17,7 +17,10 @@ const UserSchema = new mongoose.Schema({
     education: String,  
     location: String,  
     profilePhoto: String,  
-    isPremium: { type: Boolean, default: false }
+    isPremium: { type: Boolean, default: false },
+    isVerified: {type: Boolean, default: false },
+    otp: String, //phone validation
+    emailOtp: String, //email validation
 });
 
 module.exports = mongoose.model("User", UserSchema);

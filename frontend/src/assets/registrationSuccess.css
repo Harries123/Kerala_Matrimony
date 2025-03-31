@@ -1,169 +1,64 @@
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 30;
-    padding: 30;
-  }
-  
+/* Full-Screen Background Video */
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Main Registration Box */
+.registration-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(142, 196, 163, 0.6);
+  backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 60px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.registration-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.brand-logo {
+  width: 150px;
+}
+
+/* Form Fields */
+.form-field {
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.submit-button {
+  background-color: #d57900;
+  color: rgb(223, 214, 214);
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+.submit-button:hover {
+  background-color: #b46300;
+}
+
+/* Footer */
+.footer-note {
+  text-align: center;
+  margin-top: 20px;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .registration-container {
-    max-width: 800px;
-    margin: 80px auto 50px auto; /* Increased top margin to 80px */
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    max-width: 90%;
   }
-  
-  
-  /* Progress Indicator */
-  .progress-indicator {
-    font-size: 16px;
-    font-weight: bold;
-    color: #008000;
-    margin-bottom: 15px;
-  }
-  
-  /* Header */
-  .registration-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-  }
-  
-  .brand-text {
-    font-size: 14px;
-    color: gray;
-  }
-  
-  .brand-logo {
-    width: 100px;
-    height: auto;
-  }
-  
-  /* Content */
-  .registration-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  /* Left Side - Banner */
-  .banner-section {
-    background-color: #e0f2f1;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    flex: 1;
-  }
-  
-  .banner-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .banner-icon {
-    width: 50px;
-    margin-bottom: 10px;
-  }
-  
-  .banner-text {
-    font-size: 18px;
-    font-weight: bold;
-    color: #004d40;
-  }
-  
-  /* Right Side - Form */
-  .form-container {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    width: 100%;
-  }
-  
-  .form-heading {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* Form Fields - Two in One Line */
-  .form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .form-field {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-  }
-  
-  /* Input Focus Effect */
-  .form-field:focus {
-    border-color: #008000;
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 128, 0, 0.3);
-  }
-  
-  /* Button Styling */
-  .submit-button {
-    width: 100%;
-    background-color: #008000;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
-  }
-  
-  .submit-button:hover {
-    background-color: #006400;
-    transform: scale(1.02);
-  }
-  
-  /* Help Text */
-  .help-text {
-    font-size: 16px;
-    color: gray;
-    margin-top: 20px;
-  }
-  
-  /* Footer */
-  .footer-note {
-    font-size: 16px;
-    color: gray;
-    margin-top: 20px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .registration-content {
-      flex-direction: column;
-    }
-  
-    .form-row {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .submit-button {
-      width: 100%;
-    }
-  }
-  
+}

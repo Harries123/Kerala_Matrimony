@@ -12,17 +12,32 @@ const SidebarProfile = () => {
 
   return (
     <div className="sidebar">
-      <h3>Profile ID: {uniqueID}</h3>
-      <ul>
-        <li>📌 Dashboard</li>
-        <li>📷 Edit Profile</li>
-        <li>⚙️ Edit Preferences</li>
-        <li>💖 My Interests</li>
-        <li>📩 Messages</li>
-        <li>👨‍👩‍👧‍👦 Family Details</li>
-        <li>⚙️ Settings</li>
-        <li>❓ Help</li>
-      </ul>
+      {/* Top Section */}
+      <div className="top">
+        <h3>Profile ID: {uniqueID}</h3>
+      </div>
+      <hr />
+
+      {/* Navigation Menu */}
+      <div className="center">
+        <ul>
+          <p className="title">MAIN</p>
+          <li>📌 Dashboard</li>
+          <li>📷 Edit Profile</li>
+          <li>⚙️ Edit Preferences</li>
+          <li>💖 My Interests</li>
+          <li>📩 Messages</li>
+          <li>👨‍👩‍👧‍👦 Family Details</li>
+          <li>⚙️ Settings</li>
+          <li>❓ Help</li>
+        </ul>
+      </div>
+
+      {/* Theme Options */}
+      <div className="bottom">
+        <div className="colorOption light"></div>
+        <div className="colorOption dark"></div>
+      </div>
     </div>
   );
 };

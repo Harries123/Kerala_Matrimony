@@ -5,12 +5,11 @@ import { TextField, Button, Paper, Typography, Alert, Box } from '@mui/material'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/login.css';
 
-const Login = () => {
+const Login = ({ setShowLogin }) => {
   const [formData, setFormData] = useState({
-    phone: '',
+    email: '',
     password: '',
   });
-  
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -24,65 +23,73 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', formData);
-      localStorage.setItem('token', res.data.token);
-      navigate('/profile');
+      const res = await axios.post('http://localhost:5000/admin/login', formData);
+      if (res.data.success) {
+        localStorage.setItem('token', res.data.token);
+        setShowLogin(false); // Close popup on successful login
+        navigate('/admindashboard');
+      } else {
+        setError(res.data.message);
+      }
     } catch (err) {
       setError('Invalid username or password');
     }
   };
 
   return (
-    <Box className="login-container">
-      <Paper elevation={3} className="p-4 login-box">
-        <Typography variant="h4" fontWeight="bold" className="text-center mb-3">
-          Matrimonial Login
-        </Typography>
+    <div className="login">
+      <Box className="login-container">
+        <Paper elevation={3} className="p-4 login-box">
+          {/* Title */}
+          <div className="login-title">
+            <Typography variant="h5" fontWeight="bold">Admin Login</Typography>
+            <img onClick={() => setShowLogin(false)} src="/close-icon.png" alt="Close" />
+          </div>
 
-        {error && <Alert severity="error" className="mb-3">{error}</Alert>}
+          {/* Error Message */}
+          {error && <Alert severity="error" className="mb-3">{error}</Alert>}
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          {/* Username */}
-          <TextField
-  fullWidth
-  label="Phone"
-  name="phone"
-  value={formData.phone}
-  onChange={handleChange}
-  required
-  margin="normal"
-/>
+          <form className="login-form" onSubmit={handleSubmit}>
+            {/* Email */}
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              margin="normal"
+            />
 
+            {/* Password */}
+            <TextField
+              fullWidth
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              margin="normal"
+            />
 
-          {/* Password */}
-          <TextField
-            fullWidth
-            label="Password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            margin="normal"
-          />
+            {/* Terms & Conditions */}
+            <div className="login-condition">
+              <input type="checkbox" required />
+              <Typography variant="body2">By continuing, I agree to the terms of use & privacy policy</Typography>
+            </div>
 
-          {/* Forgot Password Link */}
-          <Typography variant="body2" className="text-end mt-1">
+            {/* Login Button */}
+            <Button type="submit" variant="contained" fullWidth className="loginbut">Login</Button>
+          </form>
+
+          {/* Forgot Password */}
+          <Typography variant="body2" className="text-end mt-2">
             <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           </Typography>
-
-          {/* Login Button */}
-          <Button type="submit" variant="contained" color="primary" fullWidth className="mt-3">
-            Login
-          </Button>
-        </form>
-
-        {/* Register Link */}
-        <Typography variant="body2" className="text-center mt-3">
-          Don't have an account? <Link to="/register">Register here</Link>
-        </Typography>
-      </Paper>
-    </Box>
+        </Paper>
+      </Box>
+    </div>
   );
 };
 

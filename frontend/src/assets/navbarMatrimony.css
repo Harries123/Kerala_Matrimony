@@ -1,0 +1,87 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d57900;
+  padding: 15px 5%; /* Adjust padding for responsiveness */
+  color: white;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Logo Styling */
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px; /* Adjust spacing for better alignment */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-links li:hover {
+  color: #ffcc80;
+}
+
+/* Profile Icon */
+.profile-icon {
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Ensuring Full Width */
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px; /* Limits max width for professional look */
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 15px 20px; /* Reduce padding for smaller screens */
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide links on small screens */
+  }
+
+  .profile-icon {
+    font-size: 24px;
+  }
+}

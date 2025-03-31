@@ -1,0 +1,109 @@
+/* Global Sidebar Styling */
+.sidebar {
+    flex: 1;
+    border-right: 0.5px solid rgb(71, 201, 84);
+    min-height: 100vh; /* Full height */
+    background-color: rgb(59, 114, 30);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  /* Top Section */
+  .sidebar .top {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .sidebar .top h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4caf50; /* Green theme */
+  }
+  
+  /* Divider */
+  .sidebar hr {
+    height: 0;
+    border: 0.5px solid rgb(140, 182, 128);
+    margin-bottom: 10px;
+  }
+  
+  /* Navigation */
+  .sidebar .center {
+    padding-left: 10px;
+  }
+  
+  .sidebar .center ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar .center .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #999;
+    margin: 15px 0 5px;
+  }
+  
+  .sidebar .center ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .sidebar .center ul li:hover {
+    background-color: #ece8ff;
+    transform: translateX(5px);
+  }
+  
+  /* Bottom Theme Switcher */
+  .sidebar .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+  }
+  
+  .sidebar .bottom .colorOption {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #4caf50;
+    cursor: pointer;
+    margin: 5px;
+    transition: transform 0.2s ease;
+  }
+  
+  .sidebar .bottom .colorOption:hover {
+    transform: scale(1.1);
+  }
+  
+  .sidebar .bottom .light {
+    background-color: whitesmoke;
+  }
+  
+  .sidebar .bottom .dark {
+    background-color: #333;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .sidebar {
+      padding: 10px;
+    }
+  
+    .sidebar .center ul li {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .sidebar .bottom {
+      margin-top: 15px;
+    }
+  }
+  

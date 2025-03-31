@@ -1,57 +1,151 @@
+/* Global Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to right, #ccc7c0, #dbe2db);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Profile Container */
 .profile-container {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  max-width: 1100px;
+  margin: 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #4caf50;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.sidebar h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 12px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+/* Profile Content */
+.profile-content {
+  flex: 1;
+  padding: 40px;
+}
+
+h2 {
+  color: #ff9800;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4caf50;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff9800;
+  outline: none;
+}
+
+/* Update Button */
+.update-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.update-button:hover {
+  background: #e68900;
+}
+
+/* Messages */
+.loading-message,
+.error-message,
+.success-message {
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.loading-message {
+  background: #ffeb3b;
+  color: #333;
+}
+
+.error-message {
+  background: #f44336;
+  color: white;
+}
+
+.success-message {
+  background: #4caf50;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
   }
-  
+
   .sidebar {
-    width: 250px;
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .sidebar h3 {
-    text-align: center;
-    color: #d9534f;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  }
-  
-  .profile-content {
-    flex: 1;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-  }
-  
-  .profile-content label {
-    font-weight: bold;
-  }
-  
-  .profile-content input,
-  .profile-content textarea {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 20px;
   }
-  
-  button {
-    background: #d9534f;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
+  .profile-content {
+    padding: 20px;
   }
-  
+}

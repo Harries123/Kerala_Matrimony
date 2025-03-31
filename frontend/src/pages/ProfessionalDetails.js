@@ -45,8 +45,15 @@ const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async () => {
     try {
-      console.log("Submitting professional details...");
+      const userId = localStorage.getItem("userId"); // Retrieve user ID from localStorage
+  
+      if (!userId) {
+        setMessage("User ID is missing. Please log in again.");
+        return;
+      }
+  
       const response = await axios.post("http://localhost:5000/api/users/professional-details", {
+        userId, // ✅ Send userId
         education,
         employment,
         occupation,
@@ -54,11 +61,8 @@ const navigate = useNavigate(); // Initialize useNavigate
         residentStatus,
       });
   
-      console.log("Response received:", response);
-  
       if (response.status === 200) {
-        console.log("Navigation to /verify");
-        navigate("/verify"); // ✅ Ensure navigate is inside the if condition
+        navigate("/verify"); 
       } else {
         console.log("Unexpected response status:", response.status);
       }
@@ -67,6 +71,7 @@ const navigate = useNavigate(); // Initialize useNavigate
       setMessage("Failed to update details. Please try again.");
     }
   };
+  
   
 
   const handleCitizenshipChange = (e) => {

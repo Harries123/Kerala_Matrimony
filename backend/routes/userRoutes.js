@@ -4,6 +4,28 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+const twilio = require("twilio");
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+
+// Get user by ID
+router.get("/users/:id", async (req, res) => {
+  try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+          return res.status(404).json({ error: "User not found" });
+      }
+      res.status(200).json(user);
+  } catch (error) {
+      res.status(500).json({ error: "Error fetching user" });
+  }
+});
+
+
+
 // Register Route
 router.post("/register", async (req, res) => {
     try {
@@ -115,22 +137,113 @@ router.post("/matrimony-details", async (req, res) => {
 });
 
 
-// Verification Status Route
-router.get("/verify/:userId", async (req, res) => {
-  try {
-      const user = await User.findById(req.params.userId);
-      if (!user) {
-          return res.status(404).json({ error: "User not found" });
-      }
+// Twilio setup
+const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
-      // Assuming `isVerified` is a field in your User model
-      res.status(200).json({ isVerified: user.isVerified });
+// Function to generate a 6-digit OTP
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+// Send OTP to phone
+router.post("/send-otp", async (req, res) => {
+    try {
+        const { phone } = req.body;
+
+        if (!phone) return res.status(400).json({ error: "Phone number is required" });
+
+        const user = await User.findOne({ phone });
+        if (!user) return res.status(404).json({ error: "User not found" });
+
+        const otp = generateOTP();
+        user.otp = otp;
+        await user.save();
+
+        // Send SMS via Twilio
+        await twilioClient.messages.create({
+            body: `Your verification code is: ${otp}`,
+            from: process.env.TWILIO_PHONE,
+            to: phone,
+        });
+
+        res.status(200).json({ message: "OTP sent successfully" });
+    } catch (error) {
+        console.error("Error sending OTP:", error.message);
+        res.status(500).json({ error: "Error sending OTP" });
+    }
+});
+
+
+// Verification Status Route
+router.post("/verify", async (req, res) => {
+  try {
+      const { phone, otp } = req.body;
+
+      const user = await User.findOne({ phone });
+      if (!user) return res.status(404).json({ error: "User not found" });
+
+      if (user.otp !== otp) return res.status(400).json({ error: "Invalid OTP" });
+
+      user.isVerified = true;
+      user.otp = null; // Clear OTP after verification
+      await user.save();
+
+      res.status(200).json({ message: "Phone verified successfully" });
   } catch (error) {
-      console.error("Verification error:", error.message);
-      res.status(500).json({ error: "Error fetching verification status" });
+      res.status(500).json({ error: "Error verifying OTP" });
   }
 });
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+  },
+});
+
+router.post("/send-email-otp", async (req, res) => {
+  try {
+      const { email } = req.body;
+      if (!email) return res.status(400).json({ error: "Email is required" });
+
+      const user = await User.findOne({ email });
+      if (!user) return res.status(404).json({ error: "User not found" });
+
+      const emailOtp = generateOTP();
+      user.emailOtp = emailOtp;
+      await user.save();
+
+      await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: email,
+          subject: "Email Verification OTP",
+          text: `Your OTP is: ${emailOtp}`,
+      });
+
+      res.status(200).json({ message: "OTP sent to email" });
+  } catch (error) {
+      res.status(500).json({ error: "Error sending OTP" });
+  }
+});
+
+
+router.post("/verify-email-otp", async (req, res) => {
+  try {
+      const { email, otp } = req.body;
+
+      const user = await User.findOne({ email });
+      if (!user) return res.status(404).json({ error: "User not found" });
+
+      if (user.emailOtp !== otp) return res.status(400).json({ error: "Invalid OTP" });
+
+      user.isVerified = true;
+      user.emailOtp = null; // Clear OTP
+      await user.save();
+
+      res.status(200).json({ message: "Email verified successfully" });
+  } catch (error) {
+      res.status(500).json({ error: "Error verifying OTP" });
+  }
+});
 
 
 
