@@ -14,9 +14,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../assets/registrationSuccess.css";
 
-
 import logo from "../assets/images/logo.jpeg";
-
 
 const RegistrationSuccess = () => {
   const navigate = useNavigate();
@@ -27,14 +25,38 @@ const RegistrationSuccess = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const religions = ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Parsi", "Jewish", "Other"];
-  const motherTongues = ["English", "Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Malayalam"];
+  const religions = [
+    "Hindu",
+    "Muslim",
+    "Christian",
+    "Sikh",
+    "Buddhist",
+    "Jain",
+    "Parsi",
+    "Jewish",
+    "Other",
+  ];
+  const motherTongues = [
+    "English",
+    "Hindi",
+    "Bengali",
+    "Telugu",
+    "Marathi",
+    "Tamil",
+    "Urdu",
+    "Gujarati",
+    "Malayalam",
+  ];
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    setPasswordError(passwordRegex.test(value) ? "" : "Password must be at least 6 characters, including numbers and letters");
+    setPasswordError(
+      passwordRegex.test(value)
+        ? ""
+        : "Password must be at least 6 characters, including numbers and letters"
+    );
   };
 
   const userId = localStorage.getItem("userId");
@@ -50,13 +72,16 @@ const RegistrationSuccess = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/users/update/${userId}`, {
-        dob,
-        religion,
-        motherTongue,
-        email,
-        password
-      });
+      const response = await axios.put(
+        `http://localhost:5000/api/users/update/${userId}`,
+        {
+          dob,
+          religion,
+          motherTongue,
+          email,
+          password,
+        }
+      );
 
       console.log("Registration Success:", response.data);
       navigate("/matrimony-form");
@@ -68,13 +93,11 @@ const RegistrationSuccess = () => {
 
   return (
     <>
-      {/* Background Video */}
       <video autoPlay loop muted className="background-video">
-      <source src="/videos/matri.mp4" type="video/mp4" />
+        <source src="/videos/matri.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      {/* Registration Form */}
       <Box className="registration-container">
         <Typography variant="h6" className="progress-indicator">
           Great! You have completed 20%
@@ -87,7 +110,6 @@ const RegistrationSuccess = () => {
         <Grid container spacing={2} className="registration-content">
           <Grid item xs={12} md={5} className="banner-section">
             <Box className="banner-content">
-             
               <Typography variant="h6" className="banner-text">
                 Your search for a caring <br />
                 companion begins here
@@ -109,21 +131,47 @@ const RegistrationSuccess = () => {
               />
             </LocalizationProvider>
 
-            <Select fullWidth value={religion} onChange={(e) => setReligion(e.target.value)} displayEmpty className="form-field">
-              <MenuItem value="" disabled>Select Religion</MenuItem>
+            <Select
+              fullWidth
+              value={religion}
+              onChange={(e) => setReligion(e.target.value)}
+              displayEmpty
+              className="form-field"
+            >
+              <MenuItem value="" disabled>
+                Select Religion
+              </MenuItem>
               {religions.map((rel, index) => (
-                <MenuItem key={index} value={rel}>{rel}</MenuItem>
+                <MenuItem key={index} value={rel}>
+                  {rel}
+                </MenuItem>
               ))}
             </Select>
 
-            <Select fullWidth value={motherTongue} onChange={(e) => setMotherTongue(e.target.value)} displayEmpty className="form-field">
-              <MenuItem value="" disabled>Select Mother Tongue</MenuItem>
+            <Select
+              fullWidth
+              value={motherTongue}
+              onChange={(e) => setMotherTongue(e.target.value)}
+              displayEmpty
+              className="form-field"
+            >
+              <MenuItem value="" disabled>
+                Select Mother Tongue
+              </MenuItem>
               {motherTongues.map((lang, index) => (
-                <MenuItem key={index} value={lang}>{lang}</MenuItem>
+                <MenuItem key={index} value={lang}>
+                  {lang}
+                </MenuItem>
               ))}
             </Select>
 
-            <TextField fullWidth label="Email ID" value={email} onChange={(e) => setEmail(e.target.value)} className="form-field" />
+            <TextField
+              fullWidth
+              label="Email ID"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-field"
+            />
             <TextField
               fullWidth
               label="Password"

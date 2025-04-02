@@ -3,12 +3,14 @@ import axios from "axios";
 import "../assets/MobileVerification.css";
 import { useParams } from "react-router-dom";
 
+// Base URL correction
+axios.defaults.baseURL = "http://localhost:5000"; // Removed "/api" from base URL
+
 const generateUniqueID = () =>
   Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
 const generateCaptcha = () => {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   return Array.from({ length: 6 }, () =>
     chars.charAt(Math.floor(Math.random() * chars.length))
   ).join("");
@@ -27,63 +29,67 @@ const MobileVerification = () => {
   const [attempts, setAttempts] = useState(3);
 
   useEffect(() => {
-    if (!userId) {
-      console.error("User ID is undefined");
-      return;
+    if (userId) {
+      axios
+        .get(`/api/users/${userId}`)
+        .then((res) => {
+          setPhone(res.data.phone);
+          setEmail(res.data.email);
+        })
+        .catch((err) => console.error("Error fetching user:", err));
     }
-
-    axios
-      .get(`/api/users/${userId}`)
-      .then((response) => {
-        console.log("Fetched user:", response.data);
-        setPhone(response.data.phone);
-        setEmail(response.data.email);
-      })
-      .catch((error) => {
-        console.error("Error fetching user:", error);
-      });
   }, [userId]);
 
+  // Send Mobile OTP
   const sendOtp = async () => {
     try {
       await axios.post("/api/send-otp", { phone });
       alert("OTP sent successfully!");
     } catch (error) {
+      console.error("Error sending OTP:", error.response?.data || error.message);
       alert("Failed to send OTP. Please try again.");
     }
   };
 
-  const sendEmailOtp = async () => {
-    try {
-      await axios.post("/api/send-email-otp", { email });
-      alert("Email OTP sent successfully!");
-    } catch (error) {
-      alert("Failed to send Email OTP. Please try again.");
-    }
-  };
-
+  // Verify Mobile OTP
   const verifyOtp = async () => {
     if (otp.length !== 6) {
       alert("OTP must be 6 digits.");
       return;
     }
 
-    try {
-      const res = await axios.post("/api/verify-otp", { phone, otp });
-      alert(res.data.message);
-      setStep(2);
-    } catch (error) {
-      setAttempts((prevAttempts) => prevAttempts - 1);
-      if (attempts <= 1) {
+    setAttempts((prevAttempts) => {
+      const newAttempts = prevAttempts - 1;
+      if (newAttempts <= 0) {
         alert("Too many failed attempts. Please request a new OTP.");
-        setAttempts(3);
-        sendOtp();
-      } else {
-        alert(`Invalid OTP. ${attempts - 1} attempts remaining.`);
+        sendOtp(); // Resend OTP if attempts exhausted
+        return 3; // Reset attempts
       }
+      return newAttempts;
+    });
+
+    try {
+      const res = await axios.post("/api/verify", { phone, otp });
+      alert(res.data.message);
+      setStep(2); // Move to Email Verification
+    } catch (error) {
+      console.error(error);
+      alert(`Invalid OTP. ${attempts - 1} attempts remaining.`);
     }
   };
 
+  // Send Email OTP
+  const sendEmailOtp = async () => {
+    try {
+      await axios.post("/api/send-email-otp", { email });
+      alert("Email OTP sent successfully!");
+    } catch (error) {
+      console.error("Error sending Email OTP:", error.response?.data || error.message);
+      alert("Failed to send Email OTP. Please try again.");
+    }
+  };
+
+  // Verify Email OTP
   const verifyEmailOtp = async () => {
     if (emailOtp.length !== 6) {
       alert("OTP must be 6 digits.");
@@ -93,27 +99,28 @@ const MobileVerification = () => {
     try {
       const res = await axios.post("/api/verify-email-otp", { email, emailOtp });
       alert(res.data.message);
-      setStep(3);
+      setStep(3); // Move to Captcha Verification
     } catch (error) {
+      console.error("Error verifying Email OTP:", error.response?.data || error.message);
       alert("Invalid Email OTP. Please try again.");
     }
   };
 
+  // Captcha Verification
   const handleCaptchaVerify = () => {
     if (captchaInput !== captcha) {
       alert("Incorrect Captcha. Try again.");
       setCaptcha(generateCaptcha());
+      setCaptchaInput("");
       return;
     }
     setUniqueID(generateUniqueID());
-    setStep(4);
+    setStep(4); // Registration Successful
   };
 
   return (
     <div className="mobile-verification-container">
-      <header className="mobile-verification-header">
-        Kerala Matrimony Registration
-      </header>
+      <header className="mobile-verification-header">Kerala Matrimony Registration</header>
 
       <div className="mobile-verification-box">
         {step === 1 && (
@@ -187,17 +194,13 @@ const MobileVerification = () => {
         {step === 4 && (
           <>
             <h2>Registration Successful!</h2>
-            <p>
-              Your unique ID: <strong>{uniqueID}</strong>
-            </p>
+            <p>Your unique ID: <strong>{uniqueID}</strong></p>
             <p>Welcome to Kerala Matrimony!</p>
           </>
         )}
       </div>
 
-      <footer className="mobile-verification-footer">
-        © 2025 Kerala Matrimony. All rights reserved.
-      </footer>
+      <footer className="mobile-verification-footer">© 2025 Kerala Matrimony. All rights reserved.</footer>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import { Container, Grid, Typography, Box } from "@mui/material";
 import Register from "./Register";
 import Background from "../components/Background"; // Import Background component
@@ -12,19 +12,19 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   // const [showLogin, setShowLogin] = useState(false); // State for Login Popup
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/users");
-        setUsers(res.data);
-      } catch (error) {
-        console.error("Error fetching users", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:5000/api/users");
+  //       setUsers(res.data);
+  //     } catch (error) {
+  //       console.error("Error fetching users", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, []);
 
   return (
     <Box sx={{ position: "relative", width: "100vw", minHeight: "100vh" }}>

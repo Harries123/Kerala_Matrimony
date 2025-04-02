@@ -25,7 +25,11 @@ const Login = ({ setShowLogin }) => {
     try {
       const res = await axios.post('http://localhost:5000/admin/login', formData);
       if (res.data.success) {
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token); // ✅ Store token
+        localStorage.setItem('userId', res.data.userId); // ✅ Store userId
+        
+        console.log("User ID stored:", localStorage.getItem("userId")); // Debugging
+  
         setShowLogin(false); // Close popup on successful login
         navigate('/admindashboard');
       } else {
@@ -35,15 +39,32 @@ const Login = ({ setShowLogin }) => {
       setError('Invalid username or password');
     }
   };
+  
 
   return (
     <div className="login">
       <Box className="login-container">
         <Paper elevation={3} className="p-4 login-box">
-          {/* Title */}
-          <div className="login-title">
-            <Typography variant="h5" fontWeight="bold">Admin Login</Typography>
-            <img onClick={() => setShowLogin(false)} src="/close-icon.png" alt="Close" />
+          {/* Back Arrow & Title */}
+          <div className="login-header">
+            <img
+              src="https://imgs.bharatmatrimony.com/webapp-assets/revamp-images/login-revamp/black-back-icon.svg"
+              alt="Back"
+              className="back-icon"
+              onClick={() => setShowLogin(false)}
+            />
+            <Typography variant="h5" fontWeight="bold" className="login-title">
+              Admin Login
+            </Typography>
+          </div>
+
+          {/* Login Icon */}
+          <div className="login-icon-container">
+            <img
+              src="https://imgs.bharatmatrimony.com/webapp-assets/revamp-images/login-revamp/login-page-icon.svg"
+              alt="Login Icon"
+              className="login-icon"
+            />
           </div>
 
           {/* Error Message */}
@@ -76,17 +97,34 @@ const Login = ({ setShowLogin }) => {
             {/* Terms & Conditions */}
             <div className="login-condition">
               <input type="checkbox" required />
-              <Typography variant="body2">By continuing, I agree to the terms of use & privacy policy</Typography>
+              <Typography variant="body2">
+                By continuing, I agree to the terms of use & privacy policy
+              </Typography>
             </div>
 
             {/* Login Button */}
-            <Button type="submit" variant="contained" fullWidth className="loginbut">Login</Button>
+            <Button type="submit" variant="contained" fullWidth className="loginbut">
+              Login
+            </Button>
           </form>
 
           {/* Forgot Password */}
           <Typography variant="body2" className="text-end mt-2">
             <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           </Typography>
+
+          {/* Help Section */}
+          <div className="login-help">
+            <Typography variant="body2" className="help-text">
+              Need Help in Login? Call
+            </Typography>
+            <img
+              src="https://imgs.bharatmatrimony.com/webapp-assets/revamp-images/login-revamp/call-icon.svg"
+              alt="Call Icon"
+              className="call-icon"
+            />
+            <span className="help-number">+91 8144996677</span>
+          </div>
         </Paper>
       </Box>
     </div>

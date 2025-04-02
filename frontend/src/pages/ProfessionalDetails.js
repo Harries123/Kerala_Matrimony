@@ -1,99 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/ProfessionalDetails.css"; 
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const ProfessionalDetails = () => {
+  const navigate = useNavigate(); 
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-const navigate = useNavigate(); // Initialize useNavigate
-
+  // Form State
   const [education, setEducation] = useState("Higher Secondary School / High School");
-  const [employment, setEmployment] = useState("India");
-  const [occupation, setOccupation] = useState("Not Working");
+  const [employment, setEmployment] = useState("Not Working");
+  const [occupation, setOccupation] = useState("");
   const [citizenship, setCitizenship] = useState("India");
   const [customCitizenship, setCustomCitizenship] = useState("");
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [residentStatus, setResidentStatus] = useState("");
   const [progress, setProgress] = useState(80);
-  const [message, setMessage] = useState("");
 
-
+  // Employment and Resident Status Options
   const employmentOptions = ["Government/PSU", "Private", "Business", "Defence", "Self Employed", "Not working"];
   const residentOptions = ["Permanent Resident", "Work Permit", "Student Visa", "Temporary Visa"];
 
+  // Preferred Citizenship Countries
+  const preferredCountries = [
+    "India", "USA", "Canada", "United Kingdom", "Australia",
+    "United Arab Emirates", "Singapore", "New Zealand", "Germany", "Qatar", "Other"
+  ];
+
+  // Handle Employment Click
   const handleEmploymentClick = (option) => {
     setEmployment(option);
     setOccupation(option === "Not working" ? "Not Working" : "");
     updateProgress();
   };
 
-  const preferredCountries = [
-    "India",
-    "USA",
-    "Canada",
-    "United Kingdom",
-    "Australia",
-    "United Arab Emirates",
-    "Singapore",
-    "New Zealand",
-    "Germany",
-    "Qatar",
-    "Other",
-  ];
-
-
-  const handleSubmit = async () => {
-    try {
-      const userId = localStorage.getItem("userId"); // Retrieve user ID from localStorage
-  
-      if (!userId) {
-        setMessage("User ID is missing. Please log in again.");
-        return;
-      }
-  
-      const response = await axios.post("http://localhost:5000/api/users/professional-details", {
-        userId, // ✅ Send userId
-        education,
-        employment,
-        occupation,
-        citizenship: isOtherSelected ? customCitizenship : citizenship,
-        residentStatus,
-      });
-  
-      if (response.status === 200) {
-        navigate(`/verify/${userId}`); // ✅ Pass userId in the URL
-      } else {
-        console.log("Unexpected response status:", response.status);
-      }
-    } catch (error) {
-      console.error("Error updating professional details:", error);
-      setMessage("Failed to update details. Please try again.");
-    }
-  };
-  
-  
-
+  // Handle Citizenship Selection
   const handleCitizenshipChange = (e) => {
     const selectedValue = e.target.value;
     setCitizenship(selectedValue);
     setIsOtherSelected(selectedValue === "Other");
-    if (selectedValue !== "Other") {
-      setCustomCitizenship(""); 
-    }
+    if (selectedValue !== "Other") setCustomCitizenship("");
   };
 
-
+  // Handle Resident Status Click
   const handleResidentClick = (option) => {
     setResidentStatus(option);
     updateProgress();
   };
 
+  // Update Progress Bar
   const updateProgress = () => {
     let completed = 80;
     if (employment) completed += 5;
     if (residentStatus) completed += 5;
     setProgress(completed);
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
+    setSuccessMessage(""); // Clear previous success messages
+
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    if (!token || !userId) {
+      navigate("/login");  // Redirect to login if not authenticated
+    
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/users/professional-details",
+        {
+          userId,
+          education,
+          employment,
+          occupation,
+          citizenship: isOtherSelected ? customCitizenship : citizenship,
+          residentStatus,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.data.success) {
+        setSuccessMessage("Professional details updated successfully!");
+        setTimeout(() => navigate(`/verify/${userId}`), 1500); // Redirects to Mobile Verification
+
+      } else {
+        setError(response.data.message || "Failed to update details.");
+      }
+    } catch (error) {
+      console.error("Error updating professional details:", error);
+      setError(error.response?.data?.message || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -105,16 +108,15 @@ const navigate = useNavigate(); // Initialize useNavigate
       <div className="card">
         {/* Left Banner Section */}
         <div className="banner">
-          {/* Couple Icons */}
-     
-          
-          {/* Text */}
           <p className="banner-text">A partner who is generous in every way</p>
         </div>
 
         {/* Right Form Section */}
         <div className="form-section">
-          <h2 className="title">Professional details help us to find the best companion</h2>
+          <h2 className="title">Professional details help us find the best companion</h2>
+
+          {error && <p className="error-message">{error}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
 
           {/* Highest Education */}
           <div className="form-group">
@@ -146,62 +148,30 @@ const navigate = useNavigate(); // Initialize useNavigate
           {/* Occupation */}
           <div className="form-group">
             <label>Occupation</label>
-            <input type="text" value={occupation}  onChange={(e) => setOccupation(e.target.value)} />
-           
-          </div>
-
-          {/* Bride's Location */}
-          <div className="form-group">
-            <label>Current Location</label>
-            <select>
-    <option>Select</option>
-    {[
-      "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
-      "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
-      "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
-      "Botswana", "Brazil", "Bulgaria", "Cambodia", "Cameroon", "Canada", "Chile", "China",
-      "Colombia", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark",
-      "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Estonia", "Ethiopia",
-      "Fiji", "Finland", "France", "Germany", "Ghana", "Greece", "Guatemala", "Honduras",
-      "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland",
-      "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kuwait",
-      "Laos", "Latvia", "Lebanon", "Libya", "Lithuania", "Luxembourg", "Malaysia",
-      "Maldives", "Malta", "Mexico", "Monaco", "Mongolia", "Morocco", "Nepal", "Netherlands",
-      "New Zealand", "Nigeria", "North Korea", "Norway", "Oman", "Pakistan", "Panama",
-      "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania",
-      "Russia", "Saudi Arabia", "Serbia", "Singapore", "Slovakia", "Slovenia", "South Africa",
-      "South Korea", "Spain", "Sri Lanka", "Sudan", "Sweden", "Switzerland", "Syria",
-      "Taiwan", "Tanzania", "Thailand", "Tunisia", "Turkey", "Uganda", "Ukraine",
-      "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan",
-      "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-    ].map((country) => (
-      <option key={country} value={country}>{country}</option>
-    ))}
-  </select>
+            <input type="text" value={occupation} onChange={(e) => setOccupation(e.target.value)} />
           </div>
 
           {/* Citizenship */}
           <div className="form-group">
-      <label>Citizenship</label>
-      <select value={citizenship} onChange={handleCitizenshipChange}>
-        {preferredCountries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
-      </select>
+            <label>Citizenship</label>
+            <select value={citizenship} onChange={handleCitizenshipChange}>
+              {preferredCountries.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
 
-      {/* Show input field if "Other" is selected */}
-      {isOtherSelected && (
-        <input
-          type="text"
-          placeholder="Enter your citizenship"
-          value={customCitizenship}
-          onChange={(e) => setCustomCitizenship(e.target.value)}
-          className="form-control mt-2"
-        />
-      )}
-    </div>
+            {isOtherSelected && (
+              <input
+                type="text"
+                placeholder="Enter your citizenship"
+                value={customCitizenship}
+                onChange={(e) => setCustomCitizenship(e.target.value)}
+                className="form-control mt-2"
+              />
+            )}
+          </div>
 
           {/* Resident Status */}
           <div className="form-group">
@@ -219,9 +189,9 @@ const navigate = useNavigate(); // Initialize useNavigate
             </div>
           </div>
 
-          {/* Continue Button */}
+          {/* Submit Button */}
           <button className="continue-button" onClick={handleSubmit}>Continue</button>
-          </div>
+        </div>
       </div>
     </div>
   );

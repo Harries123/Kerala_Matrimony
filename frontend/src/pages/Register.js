@@ -18,7 +18,7 @@ function Register() {
     phone: "",
    
     relation: "",
-    password: "",
+   
     gender: "",
     country: "IN",
   });
@@ -36,7 +36,7 @@ function Register() {
     if (
       !formData.name ||
       !formData.phone ||
-      !formData.password ||
+      
       !formData.gender ||
       !formData.relation
     ) {
@@ -47,12 +47,17 @@ function Register() {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/users/register",
-        formData // sending full form data
+        formData ,
+      
+
+       
       );
   
       if (response.status === 201) {
         console.log("User Registered Successfully", response.data);
+        localStorage.setItem("token", response.data.token); 
         localStorage.setItem("userId", response.data.userId);
+
         navigate("/success");
       }
     } catch (error) {
@@ -121,18 +126,8 @@ function Register() {
             />
           </Grid>
 
-          {/* Password */}
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Enter Password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="input-field"
-            />
-          </Grid>
+      
+          
         </Grid>
 
         {/* Register Button */}

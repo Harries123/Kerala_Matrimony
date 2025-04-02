@@ -24,18 +24,48 @@ function LandingPage() {
 
       {/* 🌟 Landing Page Content */}
       <div className="landing-container">
-        <section className="section">
-          <h2>Limca Records</h2>
-          <p>100% Mobile-verified profiles</p>
-        </section>
+      <section className="limca-records-section">
+  <h2>Our Achievements</h2>
+  <p>Recognized for our excellence in matchmaking</p>
 
-        <section className="section">
-          <h2>4 Crore+ Customers Served</h2>
-        </section>
+  <div className="limca-records-flex">
+    
+    {/* Record 1 */}
+    <div className="limca-records-center">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/records-new-1.svg" alt="Mobile Verified" />
+      <div>
+        <span className="limca-records-title">100%</span>
+        <span className="limca-records-desc">Mobile-verified profiles</span>
+      </div>
+    </div>
 
-        <section className="section">
-          <h2>25 Years of Successful Matchmaking</h2>
-        </section>
+    <div className="limca-records-border"></div>
+
+    {/* Record 2 */}
+    <div className="limca-records-center">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/records-new-3.svg" alt="Customers Served" />
+      <div>
+        <span className="limca-records-title">4 Crore+</span>
+        <span className="limca-records-desc">Customers served</span>
+      </div>
+    </div>
+
+    <div className="limca-records-border"></div>
+
+    {/* Record 3 */}
+    <div className="limca-records-center">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/records-new-2.svg" alt="Years of Success" />
+      <div>
+        <span className="limca-records-title">25 Years</span>
+        <span className="limca-records-desc">of successful matchmaking</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+     
 
         <section className="section">
     <h2>Featured in the Limca Book of Records</h2>
@@ -180,10 +210,39 @@ function LandingPage() {
 </section>
 
 
-        <section className="section">
-          <h2>Kerala Matrimony Retail Outlets</h2>
-          <p>Visit your nearest store for assistance in registering, using the platform, and making payments.</p>
-        </section>
+<section className="retail-section">
+  <h2>Kerala Matrimony Retail Outlets</h2>
+  <p>Visit your nearest store for assistance in registering, using the platform, and making payments.</p>
+
+  <div className="retail-content">
+    <div className="retail-item">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/bm-1030/retail-list-icon-1.svg" alt="Registering your profile" />
+      <span className="retail-title">Registering your profile</span>
+    </div>
+
+    <div className="retail-item">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/bm-1030/retail-list-icon-2.svg" alt="Using Kerala Matrimony" />
+      <span className="retail-title">Using Kerala Matrimony</span>
+    </div>
+
+    <div className="retail-item">
+      <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/bm-1030/retail-list-icon-3.svg" alt="Making payments" />
+      <span className="retail-title">Making payments</span>
+    </div>
+  </div>
+
+  <div className="retail-banner">
+    <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/bm-1030/retail-kerala-banner.png" alt="Retail Kerala Image" />
+  </div>
+
+  <div className="retail-cta">
+    <a href="https://www.keralamatrimony.com/matrimonyoutlets.php" target="_blank" rel="noopener noreferrer">
+      <button className="cta-button">Find a Store</button>
+    </a>
+  </div>
+</section>
+
+
 
         <section className="section">
           <h2>Success Stories</h2>
