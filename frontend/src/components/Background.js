@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-// Import background images
+
 import img1 from "../assets/images/img1.jpg";
 import img2 from "../assets/images/img2.jpg";
 import img3 from "../assets/images/img3.jpg";
@@ -28,12 +28,12 @@ const Background = () => {
         position: "relative",
         width: "100vw",
         minHeight: "100vh",
-        minHeight: "80vh", // Increased height for better layout
+        minHeight: "80vh", 
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "200px", // More space for content
+        paddingTop: "200px", 
         paddingBottom: "40px",
         backgroundColor: "#f8f8f8",
       }}
@@ -42,7 +42,7 @@ const Background = () => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(8, 1fr)", // Now 8 images per row
+          gridTemplateColumns: "repeat(8, 1fr)", 
           gap: "10px",
           zIndex: 1,
           paddingTop: "130px",
@@ -54,7 +54,7 @@ const Background = () => {
           <Box
             key={index}
             sx={{
-              width: "140px", // Slightly smaller width for better fit
+              width: "140px", 
               height: "200px",
               backgroundImage: `url(${image})`,
               backgroundSize: "cover",
@@ -63,10 +63,10 @@ const Background = () => {
               boxShadow: "0 3px 5px rgba(0, 0, 0, 0.1)",
               position: "relative",
               overflow: "hidden",
-              marginTop: index % 2 === 0 ? "8px" : "-8px", // Staggered effect
+              marginTop: index % 2 === 0 ? "8px" : "-8px", 
             }}
           >
-            {/* Light Transparent Overlay for a Whitish Effect */}
+
             <Box
               sx={{
                 position: "absolute",
@@ -74,7 +74,7 @@ const Background = () => {
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "rgba(255, 255, 255, 0.4)", // More opacity for a whitish effect
+                backgroundColor: "rgba(255, 255, 255, 0.4)", 
               }}
             />
           </Box>
@@ -86,4 +86,3 @@ const Background = () => {
 
 export default Background;
 
-//ithoke nee cheythenn parayumbo oru vishwasakaruav oho njn enik ariyavva bhashel code chythit structyre chyth

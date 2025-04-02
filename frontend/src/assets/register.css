@@ -2,65 +2,78 @@
 .profile-form {
   max-width: 400px;
   margin: 0 auto;
-  padding: 50px;
-  border-radius: 55px;
+  padding: 40px;
+  border-radius: 15px;
   background: white;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
 }
 
-/* Green Header */
 .profile-form .inside-header {
   width: 100%;
-  background-color: #63b35c;
-  border-radius: 6px;
+  background-color: #16A751;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-weight: bold;
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
+  padding: 10px;
+ 
 }
 
-/* Form Subtitle */
-.form-title1{
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 15px;
+.profile-form .header-title {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+
+/* Form Title */
+.form-title1 {
+  font-size: 22px;
+  font-weight:bolder;
+  margin-top: 60px;
   padding-top: 30px;
+  color: #333;
+  
+  
 }
 
 /* Input Fields */
 .input-field {
+  margin-bottom: 20px;
   border-radius: 5px;
-  background-color: white;
 }
+
+
 
 /* Phone Input Container */
 .phone-container {
   display: flex;
-  gap: 5px;
+  gap: 10px;
 }
 
-/* Country Code Select */
+/* Country Select */
 .country-select {
-  width: 25%;
+  width: 30%;
   border-radius: 5px;
   background: white;
 }
 
 /* Phone Number Input */
 .phone-input {
-  width: 73%;
+  width: 68%;
+  border-radius: 5px;
 }
 
 /* Register Button */
 .register-button {
   width: 100%;
-  background-color: #e57c1e;
+  background-color: #E06506;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -68,11 +81,16 @@
   border-radius: 5px;
   margin-top: 20px;
   text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #d86d1a;
 }
 
 /* Terms & Conditions */
 .terms-text {
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 12px;
   color: #512d03;
 }
@@ -80,6 +98,45 @@
 .terms-text a {
   color: #715409;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.terms-text a:hover {
+  text-decoration: underline;
+}
+
+/* Form Controls */
+.MuiFormControl-root {
+  width: 100%;
+}
+
+/* Radio Button Group */
+.MuiRadio-root {
+  color: #63b35c;
+}
+
+/* Grid Layout for Form */
+.MuiGrid-root {
+  margin-top: 10px;
+}
+
+.MuiMenuItem-root {
+  font-size: 14px;
+}
+
+.MuiSelect-root {
+  font-size: 14px;
+}
+
+/* Icon in Register Button */
+.arrow-icon {
+  margin-left: 10px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+/* Form Label */
+.MuiFormLabel-root {
   font-weight: bold;
 }
 

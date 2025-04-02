@@ -1,31 +1,30 @@
+/* Default Styles (For Large Screens like Desktops & Laptops) */
 .matrimony-info {
     text-align: center;
-    padding: 0px;
-    position: absolute; /* Change to absolute for precise positioning */
-    top: 0; /* Adjust this value to move it higher */
-    left: 24%;
-    transform: translateX(-50%); /* Centers it horizontally */
-    width: 100%;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+    width: 90%;
     font-weight: 900;
-    font-size: 20px;
-    z-index: 40; /* Keeps it above background */
+    font-size: 1.25rem;
+    z-index: 40;
 }
 
-/* Matrimony Title & Subtitle */
-.matrimony-title,
+/* Title & Subtitle */
+.matrimony-title1,
 .matrimony-subtitle {
-    margin-top: 0px; /* Reset previous negative margins */
-    margin-bottom: 10px; /* Keep spacing below */
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: black;
-    position: relative;
-    z-index: 10;
+    margin-top: 0;              /* Keeps the top margin as is */
+    margin-bottom: 10px;        /* Keeps the bottom margin as is */
+    font-size: 2.5rem;          /* Keeps the font size */
+    font-weight: bold;          /* Keeps the bold style */
+    color: black;               /* Keeps the black color */
+    position: relative;         /* Keeps the relative positioning */
+    z-index: 10;                /* Keeps the z-index */
+    text-align: left;           /* Aligns the text to the left */
+    left: 0;                    /* Ensures the element is positioned to the left side */
 }
-
-
-
-
 
 
 .matrimony-subtitle {
@@ -34,14 +33,15 @@
     margin-top: 15px;
 }
 
-/* Headings inside matrimony info */
+/* Headings */
 .matrimony-info h4 {
     font-weight: 850;
-    font-size: 30px;
+    font-size: 2rem;
 }
 
 .matrimony-info h6 {
     padding-top: 20px;
+    font-size: 1rem;
 }
 
 /* Background Overlay */
@@ -55,18 +55,74 @@
     z-index: 1;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+/* Responsive Design */
+
+/* Tablets (Landscape & Portrait) */
+@media (max-width: 1024px) {
     .matrimony-info {
-        text-align: center;
-        padding: 15px;
+        width: 95%;
+        font-size: 1.1rem;
     }
 
-    .matrimony-title {
-        font-size: 2rem;
+    .matrimony-title1 {
+        font-size: 2.2rem;
+    }
+
+    .matrimony-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .matrimony-info h4 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Mobile Devices (Small Screens) */
+@media (max-width: 768px) {
+    .matrimony-info {
+        width: 100%;
+        padding: 10px;
+        position: relative; /* Adjust for smaller screens */
+        top: auto;
+        left: auto;
+        transform: none;
+    }
+
+    .matrimony-title1 {
+        font-size: 1.8rem;
     }
 
     .matrimony-subtitle {
         font-size: 1rem;
+    }
+
+    .matrimony-info h4 {
+        font-size: 1.6rem;
+    }
+
+    .matrimony-info h6 {
+        font-size: 0.9rem;
+        padding-top: 10px;
+    }
+}
+
+/* Extra Small Devices (Phones) */
+@media (max-width: 480px) {
+    .matrimony-info {
+        padding: 5px;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .matrimony-title1 {
+        font-size: 1.5rem;
+    }
+
+    .matrimony-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .matrimony-info h4 {
+        font-size: 1.4rem;
     }
 }

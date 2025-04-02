@@ -113,10 +113,14 @@ router.post("/matrimony-details", async (req, res) => {
 
   router.post("/professional-details", async (req, res) => {
     try {
-      const { userId, occupation, income, education } = req.body;
+        const { userId, occupation, income, education } = req.body;
 
         if (!userId) {
             return res.status(400).json({ error: "User ID is required" });
+        }
+
+        if (!occupation || !income || !education) {
+            return res.status(400).json({ error: "All fields are required" });
         }
 
         const user = await User.findById(userId);
@@ -124,17 +128,20 @@ router.post("/matrimony-details", async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
+        // Ensure the fields exist in the user schema
         user.occupation = occupation;
         user.income = income;
         user.education = education;
 
         await user.save();
-        res.status(200).json({ message: "Professional details updated successfully" });
+        res.status(200).json({ message: "Professional details updated successfully", user });
+
     } catch (error) {
-        console.error("Professional Details Error:", error.message);
-        res.status(500).json({ error: "Failed to update details" });
+        console.error("Professional Details Error:", error);
+        res.status(500).json({ error: "Failed to update details", details: error.message });
     }
 });
+
 
 
 // Twilio setup
@@ -145,30 +152,33 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 
 // Send OTP to phone
 router.post("/send-otp", async (req, res) => {
-    try {
-        const { phone } = req.body;
+  try {
+      const { phone } = req.body;
+      console.log("Received OTP request for:", phone); // Debugging
 
-        if (!phone) return res.status(400).json({ error: "Phone number is required" });
+      if (!phone) return res.status(400).json({ error: "Phone number is required" });
 
-        const user = await User.findOne({ phone });
-        if (!user) return res.status(404).json({ error: "User not found" });
+      const user = await User.findOne({ phone });
+      if (!user) return res.status(404).json({ error: "User not found" });
 
-        const otp = generateOTP();
-        user.otp = otp;
-        await user.save();
+      const otp = generateOTP();
+      user.otp = otp;
+      await user.save();
 
-        // Send SMS via Twilio
-        await twilioClient.messages.create({
-            body: `Your verification code is: ${otp}`,
-            from: process.env.TWILIO_PHONE,
-            to: phone,
-        });
+      console.log("Generated OTP:", otp); // Debugging
 
-        res.status(200).json({ message: "OTP sent successfully" });
-    } catch (error) {
-        console.error("Error sending OTP:", error.message);
-        res.status(500).json({ error: "Error sending OTP" });
-    }
+      // Send SMS via Twilio
+      await twilioClient.messages.create({
+          body: `Your verification code is: ${otp}`,
+          from: process.env.TWILIO_PHONE,
+          to: phone,
+      });
+
+      res.status(200).json({ message: "OTP sent successfully" });
+  } catch (error) {
+      console.error("Error sending OTP:", error.message);
+      res.status(500).json({ error: "Error sending OTP" });
+  }
 });
 
 
@@ -282,14 +292,19 @@ router.post("/login", async (req, res) => {
   
 
 
-// Get all users (optional)
-router.get("/", async (req, res) => {
+  router.get("/:id", async (req, res) => {
     try {
-        const users = await User.find();
-        res.json(users);
+        console.log("Fetching user with ID:", req.params.id); // Debugging
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json(user);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching users" });
+        console.error("Error fetching user:", error);
+        res.status(500).json({ error: "Error fetching user" });
     }
-});
+  });
+  
 
 module.exports = router;

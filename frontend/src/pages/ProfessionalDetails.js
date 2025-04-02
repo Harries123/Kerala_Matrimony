@@ -57,12 +57,12 @@ const navigate = useNavigate(); // Initialize useNavigate
         education,
         employment,
         occupation,
-        citizenship: isOtherSelected ? customCitizenship : citizenship, 
+        citizenship: isOtherSelected ? customCitizenship : citizenship,
         residentStatus,
       });
   
       if (response.status === 200) {
-        navigate("/verify"); 
+        navigate(`/verify/${userId}`); // ✅ Pass userId in the URL
       } else {
         console.log("Unexpected response status:", response.status);
       }

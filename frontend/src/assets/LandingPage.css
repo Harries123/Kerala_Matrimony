@@ -1,0 +1,385 @@
+/* General Styling */
+.landing-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f0edea;
+    border-radius: 10px;
+    text-align: center; /* Align text and image center */
+}
+
+.section h2 {
+    color: #d10000;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.section p,
+.section ul {
+    color: #333;
+    font-size: 18px;
+}
+
+.section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.section ul li {
+    background: #ffffff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* Assisted Matrimony Section Styling */
+.assisted-matrimony,
+.elite-matrimony {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+.assisted-header,
+.elite-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.assisted-banner-img,
+.elite-banner-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    border-radius: 10px;
+}
+
+.assisted-info,
+.elite-info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.assisted-info h2,
+.elite-info h2 {
+    font-size: 28px;
+    color: #d10000;
+    margin-bottom: 10px;
+}
+
+.assisted-info p,
+.elite-info p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.assisted-list,
+.elite-list {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.assisted-list-item,
+.elite-list-item {
+    text-align: center;
+    width: 30%;
+}
+
+.assisted-list-icon,
+.elite-list-icon {
+    max-width: 50px;
+    margin-bottom: 10px;
+}
+
+.assisted-list-icon-text,
+.elite-list-text p {
+    font-size: 16px;
+    color: #333;
+}
+
+.assisted-cta,
+.elite-cta {
+    background-color: #27ae60;
+    color: white;
+    font-size: 18px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.assisted-cta:hover,
+.elite-cta:hover {
+    background-color: #2ecc71;
+}
+
+.elite-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px; /* Reduced padding to shorten the length */
+    background-color: #f4f7fa; /* Light background for contrast */
+    border-radius: 22px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin: 20px 0; /* Margin for spacing between sections */
+    max-height: 300px; /* Limit the maximum height */
+    overflow: hidden; /* Hide any overflow content */
+}
+
+
+
+.elite-header {
+    text-align: center;
+    margin-bottom: 20px; /* Space between title and description */
+}
+
+.elite-title {
+    font-size: 32px; /* Slightly smaller font size */
+    font-weight: 700; /* Bold weight to make the title stand out */
+    color: #d10000; /* Accent color for the title */
+    margin-bottom: 10px; /* Space below the title */
+    letter-spacing: 1px; /* Slight letter-spacing for a refined look */
+}
+.elite-description {
+    font-size: 18px; /* A balanced font size for readability */
+    color: #333; /* Dark color for good contrast */
+    line-height: 1.6; /* Spacing for better readability */
+    max-width: 700px; /* Max width to avoid stretching on large screens */
+    margin: 0 auto; /* Center the paragraph */
+}
+
+
+
+
+.arrow-icon {
+    width: 20px;
+    height: auto;
+    margin-left: 10px;
+}
+
+/* Image Styling */
+.limca-record-image {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.limca-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    margin-top: 20px;
+}
+
+/* Responsive Styling */
+@media (max-width: 1024px) { /* Tablets */
+    .assisted-header,
+    .elite-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .assisted-info,
+    .elite-info {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .assisted-list,
+    .elite-list {
+        flex-direction: column;
+    }
+
+    .assisted-list-item,
+    .elite-list-item {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) { /* Mobile Phones */
+    .assisted-info h2,
+    .elite-info h2 {
+        font-size: 24px;
+    }
+
+    .assisted-info p,
+    .elite-info p {
+        font-size: 16px;
+    }
+
+    .assisted-cta,
+    .elite-cta {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+
+    .arrow-icon {
+        width: 18px;
+    }
+
+    .assisted-list-item,
+    .elite-list-item {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) { /* Small Phones */
+    .assisted-info h2,
+    .elite-info h2 {
+        font-size: 20px;
+    }
+
+    .assisted-info p,
+    .elite-info p {
+        font-size: 14px;
+    }
+
+    .assisted-cta,
+    .elite-cta {
+        font-size: 14px;
+        padding: 8px 20px;
+    }
+
+    .arrow-icon {
+        width: 15px;
+    }
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 40px;
+    font-size: 16px;
+    color: #515151;
+}
+
+/* For Large Desktops & Laptops */
+@media (max-width: 1440px) { /* Large screens */
+    .landing-container {
+        padding: 40px;
+    }
+
+    .section {
+        padding: 25px;
+    }
+
+    .section h2 {
+        font-size: 26px;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 18px;
+    }
+}
+
+/* For Tablets */
+@media (max-width: 1024px) { 
+    .landing-container {
+        padding: 30px;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .section h2 {
+        font-size: 22px;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 16px;
+    }
+}
+
+/* For Mobile Phones */
+@media (max-width: 768px) {
+    .landing-container {
+        padding: 20px;
+    }
+
+    .section {
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    .section h2 {
+        font-size: 20px;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 14px;
+    }
+
+    .section ul li {
+        padding: 8px;
+    }
+
+    .footer {
+        font-size: 14px;
+    }
+}
+
+/* For Small Phones */
+@media (max-width: 480px) { 
+    .landing-container {
+        padding: 15px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 12px;
+    }
+
+    .footer {
+        font-size: 12px;
+    }
+}
+
+/* For Extra Small Devices (e.g., very small phones) */
+@media (max-width: 320px) {
+    .landing-container {
+        padding: 10px;
+    }
+
+    .section {
+        padding: 8px;
+        margin-bottom: 20px;
+    }
+
+    .section h2 {
+        font-size: 16px;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 10px;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
+}

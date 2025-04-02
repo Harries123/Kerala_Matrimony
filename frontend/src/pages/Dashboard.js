@@ -48,7 +48,7 @@ function Dashboard() {
           {/* Left Side - Matrimony Info */}
           <Grid item xs={15} md={6}>
             <Box className="matrimony-info">
-              <Typography variant="h4" className="matrimony-title">
+              <Typography variant="h4" className="matrimony-title1">
                 The biggest and most trusted <br />
                 matrimony service for Malayalees!
               </Typography>

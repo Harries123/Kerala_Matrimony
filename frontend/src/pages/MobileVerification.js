@@ -3,14 +3,16 @@ import axios from "axios";
 import "../assets/MobileVerification.css";
 import { useParams } from "react-router-dom";
 
-const generateUniqueID = () => Math.floor(1000000000 + Math.random() * 9000000000).toString();
+const generateUniqueID = () =>
+  Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
 const generateCaptcha = () => {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  return Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  return Array.from({ length: 6 }, () =>
+    chars.charAt(Math.floor(Math.random() * chars.length))
+  ).join("");
 };
-
-
 
 const MobileVerification = () => {
   const { userId } = useParams();
@@ -22,16 +24,18 @@ const MobileVerification = () => {
   const [captcha, setCaptcha] = useState(generateCaptcha());
   const [captchaInput, setCaptchaInput] = useState("");
   const [uniqueID, setUniqueID] = useState("");
-  // const [attempts, setAttempts] = useState(3);
+  const [attempts, setAttempts] = useState(3);
 
   useEffect(() => {
     if (!userId) {
       console.error("User ID is undefined");
       return;
     }
-  
-    axios.get(`/api/users/${userId}`)
+
+    axios
+      .get(`/api/users/${userId}`)
       .then((response) => {
+        console.log("Fetched user:", response.data);
         setPhone(response.data.phone);
         setEmail(response.data.email);
       })
@@ -39,32 +43,52 @@ const MobileVerification = () => {
         console.error("Error fetching user:", error);
       });
   }, [userId]);
-  
 
   const sendOtp = async () => {
-    await axios.post("/api/send-otp", { phone });
-    alert("OTP sent!");
+    try {
+      await axios.post("/api/send-otp", { phone });
+      alert("OTP sent successfully!");
+    } catch (error) {
+      alert("Failed to send OTP. Please try again.");
+    }
+  };
+
+  const sendEmailOtp = async () => {
+    try {
+      await axios.post("/api/send-email-otp", { email });
+      alert("Email OTP sent successfully!");
+    } catch (error) {
+      alert("Failed to send Email OTP. Please try again.");
+    }
   };
 
   const verifyOtp = async () => {
-    if (otp.length !== 6) return alert("OTP must be 6 digits.");
+    if (otp.length !== 6) {
+      alert("OTP must be 6 digits.");
+      return;
+    }
 
     try {
       const res = await axios.post("/api/verify-otp", { phone, otp });
       alert(res.data.message);
       setStep(2);
     } catch (error) {
-      alert("Invalid OTP. Please try again.");
+      setAttempts((prevAttempts) => prevAttempts - 1);
+      if (attempts <= 1) {
+        alert("Too many failed attempts. Please request a new OTP.");
+        setAttempts(3);
+        sendOtp();
+      } else {
+        alert(`Invalid OTP. ${attempts - 1} attempts remaining.`);
+      }
     }
   };
 
-  const sendEmailOtp = async () => {
-    await axios.post("/api/send-email-otp", { email });
-    alert("Email OTP sent!");
-  };
-
   const verifyEmailOtp = async () => {
-    if (emailOtp.length !== 6) return alert("OTP must be 6 digits.");
+    if (emailOtp.length !== 6) {
+      alert("OTP must be 6 digits.");
+      return;
+    }
 
     try {
       const res = await axios.post("/api/verify-email-otp", { email, emailOtp });
@@ -87,7 +111,9 @@ const MobileVerification = () => {
 
   return (
     <div className="mobile-verification-container">
-      <header className="mobile-verification-header">Kerala Matrimony Registration</header>
+      <header className="mobile-verification-header">
+        Kerala Matrimony Registration
+      </header>
 
       <div className="mobile-verification-box">
         {step === 1 && (
@@ -105,8 +131,12 @@ const MobileVerification = () => {
             <button className="mobile-verification-btn" onClick={verifyOtp}>
               Verify OTP
             </button>
-            <p className="resend-code" onClick={sendOtp}>Didn’t receive the code? <span>Resend</span></p>
-            <p className="alternate-methods">Or verify using: <span onClick={() => setStep(2)}>Email</span></p>
+            <p className="resend-code" onClick={sendOtp}>
+              Didn’t receive the code? <span>Resend</span>
+            </p>
+            <p className="alternate-methods">
+              Or verify using: <span onClick={() => setStep(2)}>Email</span>
+            </p>
           </>
         )}
 
@@ -125,8 +155,12 @@ const MobileVerification = () => {
             <button className="mobile-verification-btn" onClick={verifyEmailOtp}>
               Verify Email
             </button>
-            <p className="resend-code" onClick={sendEmailOtp}>Didn’t receive the code? <span>Resend</span></p>
-            <p className="alternate-methods">Or verify using: <span onClick={() => setStep(1)}>Mobile OTP</span></p>
+            <p className="resend-code" onClick={sendEmailOtp}>
+              Didn’t receive the code? <span>Resend</span>
+            </p>
+            <p className="alternate-methods">
+              Or verify using: <span onClick={() => setStep(1)}>Mobile OTP</span>
+            </p>
           </>
         )}
 
@@ -153,13 +187,17 @@ const MobileVerification = () => {
         {step === 4 && (
           <>
             <h2>Registration Successful!</h2>
-            <p>Your unique ID: <strong>{uniqueID}</strong></p>
+            <p>
+              Your unique ID: <strong>{uniqueID}</strong>
+            </p>
             <p>Welcome to Kerala Matrimony!</p>
           </>
         )}
       </div>
 
-      <footer className="mobile-verification-footer">© 2025 Kerala Matrimony. All rights reserved.</footer>
+      <footer className="mobile-verification-footer">
+        © 2025 Kerala Matrimony. All rights reserved.
+      </footer>
     </div>
   );
 };

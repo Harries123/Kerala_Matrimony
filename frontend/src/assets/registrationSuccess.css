@@ -56,9 +56,95 @@
   color: #555;
 }
 
-/* Responsive */
+/* ----------------------------- Responsive Styles ----------------------------- */
+
+/* For Tablets (Portrait and Landscape) */
 @media (max-width: 768px) {
   .registration-container {
     max-width: 90%;
+    margin: 20px auto; 
+    padding: 20px; 
+  }
+
+  .registration-header {
+    font-size: 1.2rem; 
+  }
+
+  .brand-logo {
+    width: 120px; 
+  }
+
+  .submit-button {
+    padding: 10px; 
   }
 }
+
+/* For Mobile Devices (Portrait and Landscape) */
+@media (max-width: 480px) {
+  .registration-container {
+    max-width: 95%;
+    margin: 10px auto; 
+    padding: 15px; 
+  }
+
+  .registration-header {
+    font-size: 1.1rem; 
+  }
+
+  .brand-logo {
+    width: 100px; 
+  }
+
+  .form-field {
+    margin-bottom: 10px; 
+  }
+
+  .submit-button {
+    padding: 10px; 
+  }
+
+  .footer-note {
+    font-size: 0.9rem; 
+  }
+}
+
+/* For Laptops (Min Width: 1024px) */
+@media (min-width: 1024px) {
+  .registration-container {
+    max-width: 70%; 
+    padding: 40px; 
+  }
+
+  .registration-header {
+    font-size: 1.5rem; 
+  }
+
+  .brand-logo {
+    width: 180px; 
+  }
+
+  .submit-button {
+    padding: 14px; 
+  }
+}
+
+/* For Larger Desktops (Min Width: 1440px) */
+@media (min-width: 1440px) {
+  .registration-container {
+    max-width: 60%; 
+    padding: 50px; 
+  }
+
+  .registration-header {
+    font-size: 1.7rem; 
+  }
+
+  .brand-logo {
+    width: 200px; 
+  }
+
+  .submit-button {
+    padding: 16px; 
+  }
+}
+

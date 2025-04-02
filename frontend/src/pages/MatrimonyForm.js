@@ -21,7 +21,7 @@ const MatrimonyForm = () => {
         
         {/* Left Section - Info Box */}
         <div className="left-section">
-          <img src="https://www.bharatmatrimony.com/" alt="Kerala Matrimony" className="logo" />
+          {/* <img src="https://www.bharatmatrimony.com/" alt="Kerala Matrimony" className="logo" /> */}
           <div className="icon">🤝</div>
           <p className="info-text">
             Last year 10,000+ women <br /> found love on Kerala Matrimony

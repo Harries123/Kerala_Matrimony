@@ -22,13 +22,14 @@ import Services from "./pages/Services";
 
 import { Home, Notifications } from "@mui/icons-material";
 import ProfileCompletion from "./components/ProfileCompletion";
+import LandingPage from "./pages/LandingPage"; 
 
 function App() {
   return (
     <div className="app-container">
       <Routes>
         {/* Core Routes */}
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/success" element={<RegistrationSuccess />} />
@@ -40,15 +41,17 @@ function App() {
 
         {/* routes */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify" element={<MobileVerification />} />
-
+      
        
 
         {/* User Profile Routes */}
+        <Route path="/" element={<LandingPage />} />
+
         <Route path="/profile" element={<ProfileCompletion />} />
         <Route path="/editprofile" element={<KeralaMatrimonyProfile />} />
         <Route path="/useraccount" element={<UserAccount />} />
         <Route path="/verify/:userId" element={<MobileVerification />} />
+
 
         {/* Additional Features */}
         <Route path="/search" element={<Search />} />

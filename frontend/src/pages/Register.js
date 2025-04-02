@@ -91,7 +91,7 @@ function Register() {
           {/* Gender */}
           <Grid item xs={12}>
             <FormControl component="fieldset">
-              <FormLabel component="legend">Gender</FormLabel>
+              <FormLabel component="legend" className="gender">Gender</FormLabel>
               <RadioGroup row name="gender" value={formData.gender} onChange={handleChange}>
                 <FormControlLabel value="male" control={<Radio />} label="Male" />
                 <FormControlLabel value="female" control={<Radio />} label="Female" />
