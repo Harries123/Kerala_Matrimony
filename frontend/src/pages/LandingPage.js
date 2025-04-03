@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ScrollReveal from "scrollreveal";
 import Dashboard from "./Dashboard"; // Import Dashboard
 import "../assets//LandingPage.css";
+import LandingPageComponent from "../components/LandingPageComponent";
 
 function LandingPage() {
   useEffect(() => {
@@ -244,19 +245,22 @@ function LandingPage() {
 
 
 
-        <section className="section">
-          <h2>Success Stories</h2>
-          <p>Millions have found their life partner through KeralaMatrimony.</p>
-        </section>
+<section class="youtube-banner">
+        <h2 class="youtube-titletext">Watch our latest TVC</h2>
+        <a href="https://www.youtube.com/embed/SOcF3txKeC8?si=1s07Ec4QA91CASb-" 
+           target="_blank" 
+           class="youtube-banner-link">
+            <img src="https://imgs.keralamatrimony.com/bmimgs/homepage-revamp-images/youtube-banner-image-kerala-1020.webp" 
+                 alt="YouTube Image" 
+                 class="youtube-banner-img"/>
+        </a>
+    </section>
 
-        <section className="section">
-          <h2>Wedding Services</h2>
-          <ul>
-            <li>India’s Largest Wedding Planning Platform</li>
-            <li>Find trusted vendors for photography, makeup, catering, and more</li>
-            <li>40,000+ verified venues across India</li>
-          </ul>
-        </section>
+
+
+
+    <LandingPageComponent />
+
 
         <footer className="footer">
           <p>Copyright © 2025. All rights reserved.</p>
