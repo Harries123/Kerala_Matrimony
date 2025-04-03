@@ -6,6 +6,16 @@ import "../assets/css/navbarMatrimony.css";
 const NavbarMatrimony = () => {
   const navigate = useNavigate(); // Hook for navigation
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.querySelector(".menu-icon");
+    const navLinks = document.querySelector(".nav-links");
+  
+    menuIcon.addEventListener("click", function () {
+      navLinks.classList.toggle("active");
+    });
+  });
+  
+
   return (
     <nav className="navbar">
       <div className="logo">Kerala Matrimony</div>

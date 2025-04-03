@@ -134,13 +134,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px; /* Reduced padding to shorten the length */
-    background-color: #f4f7fa; /* Light background for contrast */
-    border-radius: 22px; /* Rounded corners for a modern look */
-    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    margin: 20px 0; /* Margin for spacing between sections */
-    max-height: 300px; /* Limit the maximum height */
-    overflow: hidden; /* Hide any overflow content */
+    padding: 15px; 
+    background-color: #f4f7fa; 
+    border-radius: 22px; 
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); 
+    margin: 20px 0; 
+    max-height: 300px; 
+    overflow: hidden; 
 }
 
 
@@ -158,8 +158,8 @@
     letter-spacing: 1px; /* Slight letter-spacing for a refined look */
 }
 .elite-description {
-    font-size: 18px; /* A balanced font size for readability */
-    color: #333; /* Dark color for good contrast */
+    font-size: 18px; 
+    color: #333; 
     line-height: 1.6; /* Spacing for better readability */
     max-width: 700px; /* Max width to avoid stretching on large screens */
     margin: 0 auto; /* Center the paragraph */
@@ -214,7 +214,7 @@
 .limca-records-border {
     width: 2px;
     height: 60px;
-    background-color: #ccc;
+    background-color: #ffffff;
 }
 
 /* Responsive Design */

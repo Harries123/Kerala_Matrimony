@@ -24,63 +24,72 @@ const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img
 const Background = () => {
   return (
     <Box
+    sx={{
+      position: "relative",
+      width: "100vw",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingTop: { xs: "120px", md: "200px" }, // Adjusts for different screen sizes
+      paddingBottom: "40px",
+      backgroundColor: "#f8f8f8",
+      overflow: "hidden", // Prevents horizontal scrolling
+    }}
+  >
+    <Box
       sx={{
-        position: "relative",
-        width: "100vw",
-        minHeight: "100vh",
-        minHeight: "80vh", 
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: "200px", 
-        paddingBottom: "40px",
-        backgroundColor: "#f8f8f8",
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "repeat(2, 1fr)",  // 2 columns on small screens
+          sm: "repeat(3, 1fr)",  // 3 columns on tablets
+          md: "repeat(4, 1fr)",  // 4 columns on medium screens
+          lg: "repeat(6, 1fr)",  // 6 columns on larger screens
+          xl: "repeat(8, 1fr)",  // 8 columns on extra-large screens
+        },
+        gap: "10px",
+        zIndex: 1,
+        padding: "20px",
+        width: "100%",
+        maxWidth: "1400px", // Prevents layout from stretching too much
       }}
     >
-     
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(8, 1fr)", 
-          gap: "10px",
-          zIndex: 1,
-          paddingTop: "130px",
-          paddingLeft: "10px",
-          paddingRight: "10px",
-        }}
-      >
-        {images.map((image, index) => (
+      {images.map((image, index) => (
+        <Box
+          key={index}
+          sx={{
+            width: "100%", // Responsive width
+            height: { xs: "160px", sm: "180px", md: "200px" }, // Adjust height per screen size
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "8px",
+            boxShadow: "0 3px 5px rgba(0, 0, 0, 0.1)",
+            position: "relative",
+            overflow: "hidden",
+            marginTop: index % 2 === 0 ? "8px" : "-8px",
+            transition: "transform 0.3s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.05)", // Smooth zoom on hover
+            },
+          }}
+        >
           <Box
-            key={index}
             sx={{
-              width: "140px", 
-              height: "200px",
-              backgroundImage: `url(${image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: "8px",
-              boxShadow: "0 3px 5px rgba(0, 0, 0, 0.1)",
-              position: "relative",
-              overflow: "hidden",
-              marginTop: index % 2 === 0 ? "8px" : "-8px", 
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(255, 255, 255, 0.3)", // Subtle overlay
             }}
-          >
-
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(255, 255, 255, 0.4)", 
-              }}
-            />
-          </Box>
-        ))}
-      </Box>
+          />
+        </Box>
+      ))}
     </Box>
+  </Box>
+  
   );
 };
 

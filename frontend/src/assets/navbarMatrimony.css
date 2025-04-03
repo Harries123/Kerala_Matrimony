@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #d57900;
-  padding: 15px 5%; /* Adjust padding for responsiveness */
+  padding: 15px 5%;
   color: white;
   font-family: "Poppins", sans-serif;
   width: 100%;
@@ -13,6 +13,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  box-sizing: border-box; /* Ensures no overflow */
 }
 
 /* Logo Styling */
@@ -26,7 +27,7 @@
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 30px; /* Adjust spacing for better alignment */
+  gap: 30px;
   margin: 0;
   padding: 0;
 }
@@ -61,14 +62,23 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px; /* Limits max width for professional look */
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+/* Hamburger Menu for Mobile */
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
 /* Responsive Design */
+
+/* Tablets */
 @media (max-width: 1024px) {
   .navbar {
-    padding: 15px 20px; /* Reduce padding for smaller screens */
+    padding: 15px 20px;
   }
 
   .nav-links {
@@ -76,12 +86,29 @@
   }
 }
 
+/* Mobile Devices */
 @media (max-width: 768px) {
   .nav-links {
     display: none; /* Hide links on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #d57900;
+    text-align: center;
+    padding: 15px 0;
   }
 
-  .profile-icon {
-    font-size: 24px;
+  .nav-links.active {
+    display: flex; /* Show when active */
+  }
+
+  .nav-links li {
+    padding: 10px;
+  }
+
+  .menu-icon {
+    display: block; /* Show hamburger menu */
   }
 }
