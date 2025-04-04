@@ -113,6 +113,41 @@
     margin-top: 8px;
 }
 
+.astrofreechat-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* Reduce padding for smaller screens */
+    background-color: #f9f9f9;
+}
+
+.astro-banner-img {
+    width: 100%;  /* Ensure it scales properly */
+    max-width: 1000px;  /* Prevent it from getting too large */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect only for larger screens */
+@media (min-width: 768px) {
+    .astro-banner-img:hover {
+        transform: scale(1.05);
+    }
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 480px) {
+    .astrofreechat-section {
+        padding: 5px;
+    }
+
+    .astro-banner-img {
+        max-width: 300px; /* Smaller max width for mobile */
+    }
+}
+
+
 /* ✅ Mobile Responsive */
 @media only screen and (max-width: 767px) {
     .mobile-promo-section {

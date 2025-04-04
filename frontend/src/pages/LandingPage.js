@@ -260,6 +260,7 @@ function LandingPage() {
 
 
     <LandingPageComponent />
+    
 
 
         <footer className="footer">

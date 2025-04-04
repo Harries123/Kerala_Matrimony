@@ -74,6 +74,17 @@ const LandingPageComponent = () => {
       </section>
 
 
+      <section class="astrofreechat-section">
+    <a href="https://play.google.com/store/apps/details?id=com.matrimony.astrofreechat" target="_blank">
+        <img src="https://imgs.bharatmatrimony.com/bmimgs/homepage-revamp-images/bm-1030/astrofreechat-banner-new-1.png"
+             alt="Astro Free Chat image" 
+             class="astro-banner-img" />
+    </a>
+</section>
+
+
+
+
       {/* ✅ Wedding Services Section */}
       <section className="section">
         <h2>Wedding Services</h2>
