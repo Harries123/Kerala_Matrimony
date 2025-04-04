@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import axios from 'axios';
+
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -23,6 +25,9 @@ import Services from "./pages/Services";
 import { Home, Notifications } from "@mui/icons-material";
 import ProfileCompletion from "./components/ProfileCompletion";
 import LandingPage from "./pages/LandingPage"; 
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 
 function App() {
   return (
