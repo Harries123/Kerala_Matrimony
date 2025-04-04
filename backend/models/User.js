@@ -21,6 +21,9 @@ const UserSchema = new mongoose.Schema({
     isVerified: {type: Boolean, default: false },
     otp: String, //phone validation
     emailOtp: String, //email validation
+    uniqueId: { type: String, unique: true },
+
+
 });
 
 module.exports = mongoose.model("User", UserSchema);

@@ -13,18 +13,7 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 
-// Get user by ID
-router.get("/users/:id", async (req, res) => {
-  try {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-          return res.status(404).json({ error: "User not found" });
-      }
-      res.status(200).json(user);
-  } catch (error) {
-      res.status(500).json({ error: "Error fetching user" });
-  }
-});
+
 
 
 router.post("/register", async (req, res) => {
@@ -165,6 +154,7 @@ router.post("/api/send-otp", async (req, res) => {
 
       const otp = generateOTP();
       user.otp = otp;
+      
       await user.save();
 
       console.log("Generated OTP:", otp); // Debugging
@@ -183,26 +173,44 @@ router.post("/api/send-otp", async (req, res) => {
   }
 });
 
+const generateUniqueId = () => {
+  const randomNum = Math.floor(100000 + Math.random() * 900000);
+  return `KER${randomNum}`;
+};
 
 // Verification Status Route
 router.post("/verify", async (req, res) => {
   try {
-      const { phone, otp } = req.body;
+    const { phone, otp } = req.body;
 
-      const user = await User.findOne({ phone });
-      if (!user) return res.status(404).json({ error: "User not found" });
+    const user = await User.findOne({ phone });
+    if (!user) return res.status(404).json({ error: "User not found" });
 
-      if (user.otp !== otp) return res.status(400).json({ error: "Invalid OTP" });
+    if (user.otp !== otp) return res.status(400).json({ error: "Invalid OTP" });
 
-      user.isVerified = true;
-      user.otp = null; // Clear OTP after verification
-      await user.save();
+    user.isVerified = true;
+    user.otp = null; // Clear OTP after verification
 
-      res.status(200).json({ message: "Phone verified successfully" });
+    // ✅ Set uniqueId only if it hasn't been set before
+    if (!user.uniqueId) {
+      user.uniqueId = generateUniqueId();
+    }
+
+    await user.save();
+
+    // ✅ Return uniqueId in response so frontend can store it
+    res.status(200).json({ 
+      message: "Phone verified successfully", 
+      uniqueId: user.uniqueId 
+    });
+
   } catch (error) {
-      res.status(500).json({ error: "Error verifying OTP" });
+    console.error("OTP verification error:", error);
+    res.status(500).json({ error: "Error verifying OTP" });
   }
 });
+
+
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -239,6 +247,9 @@ router.post("/send-email-otp", async (req, res) => {
 
 
 router.post("/api/verify-email-otp", async (req, res) => {
+  
+  
+
   try {
       const { email, otp } = req.body;
 
@@ -249,6 +260,7 @@ router.post("/api/verify-email-otp", async (req, res) => {
 
       user.isVerified = true;
       user.emailOtp = null; // Clear OTP
+     
       await user.save();
 
       res.status(200).json({ message: "Email verified successfully" });
@@ -257,18 +269,7 @@ router.post("/api/verify-email-otp", async (req, res) => {
   }
 });
 
-// Add this to your backend routes
-router.get("/users/:userId", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching user" });
-  }
-});
+
 
 
 // login Route
@@ -281,13 +282,15 @@ router.post("/admin/login", async (req, res) => {
     }
 
     // Find admin user
+    
     // const admin = await Admin.findOne({ email }); 
     // if (!admin) {
       // return res.status(404).json({ error: "Admin not found" });
     // }
 
     // Check password
-    const isPasswordValid = await bcrypt.compare(password, admin.password);
+   // const isPasswordValid = await bcrypt.compare(password, admin.password);
+
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
     }
@@ -312,18 +315,24 @@ router.post("/admin/login", async (req, res) => {
   
 
 
-router.get("/users/:userId", async (req, res) => {
+
+
+router.get("/users/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching user" });
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({
+      uniqueId: user.uniqueId,
+      isVerified: user.isVerified,
+      isPremium: user.isPremium,
+      name: user.name,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 });
-
 
 module.exports = router;
 

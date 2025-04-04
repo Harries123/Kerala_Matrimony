@@ -1,51 +1,314 @@
-.navbar {
+.navbar-matrimony {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+
+
+
+  
+  /* Logo Styles */
+  .logo-container {
+    cursor: pointer;
+    display: flex;
     align-items: center;
-    background-color: #ff774d;
-    width: 100%;  /* Full width */
-    max-width: 1400px;  /* Standard max width for better layout on large screens */
-    margin: 20px auto;  /* Adds vertical spacing and centers the navbar */
-    padding: 12px 100px;  /* Standard website navbar padding */
-    color: white;
-    font-family: Arial, sans-serif;
-    border-radius: 8px; /* Optional: Adds rounded edges */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a premium look */
-}
-
-/* Logo */
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-/* Navigation Links */
-.nav-links {
+    height: 100%;
+  }
+  
+  .logo-image {
+    height: 100%;
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
     list-style: none;
-    display: flex;
-    gap: 30px; /* Increased gap for a balanced look */
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    justify-content: center;
+    gap: 15px;
+    height: 100%;
+  }
+
+  .nav-icon img {
+    width: 30px;
+    height: 30px;
 }
 
-.nav-links li {
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    flex: 1; /* Makes each item take equal space */
+    text-align: center;
+
+    min-width: 60px;
+    height: 100%;
+  }
+  
+  .nav-icon {
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    height: 24px;
+  }
+  
+  .nav-image {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  /* Responsive Design */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .nav-item {
+        flex: unset;
+        width: 30%;
+    }
+}
+
+  
+  .nav-label {
+    font-family: "Lato", Helvetica Neue, sans-serif, arial;
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .matches-label {
+    color: #4CAF50 !important;
+  }
+  
+  /* Profile Dropdown Styles */
+  .profile-dropdown-container {
+    position: relative;
+    display: inline-block;
+
+    align-items: center;
+    height: 100%;
+  }
+  
+  .profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 10px;
+  }
+  .profile-image1 {
+    width: 45px;  
+    height: 45px; 
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #f0f0f0;
+  }
+  
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position it right below the profile image */
+    right: 0; /* Align to the right */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    z-index: 9999; /* Ensure it appears above everything */
+    padding: 10px;
+  }
+  
+  .profile-info {
+    padding: 0 16px 12px;
+  }
+  
+  .profile-name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .profile-id {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .membership-status {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    font-size: 1.1rem;
+  }
+  
+  .status-badge {
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    display: inline-block;
+    width: fit-content;
+  }
+  
+  .upgrade-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     cursor: pointer;
-    transition: color 0.3s ease-in-out;
-}
-
-.nav-links li:hover {
-    color: #ffd700; 
-}
-
-/* Profile Icon */
-.profile-icon {
-    font-size: 1.4rem;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  
+  .upgrade-btn:hover {
+    background: #ff5252;
+  }
+  
+  .dropdown-divider {
+    height: 1px;
+    background: #eee;
+    margin: 8px 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+  }
+  
+  .dropdown-section {
+    padding: 0 8px;
+  }
+  
+  .dropdown-header {
+    color: #888;
+    font-size: 12px;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
     cursor: pointer;
-    transition: color 0.3s ease-in-out;
-}
-
-.profile-icon:hover {
-    color: #ffd700;
-}
+    font-size: 14px;
+    color: #333;
+    transition: background 0.2s;
+  }
+  
+  .dropdown-item:hover {
+    background: #f5f5f5;
+  }
+  
+  .dropdown-item svg {
+    color: #666;
+    width: 16px;
+    flex-shrink: 0;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .nav-links {
+      gap: 10px;
+    }
+    
+    .nav-item {
+      min-width: 50px;
+      padding: 0 5px;
+    }
+    
+    .nav-label {
+      font-size: 11px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-matrimony {
+      padding: 10px 15px;
+    }
+    
+    .nav-links {
+      gap: 5px;
+    }
+    
+    .nav-item {
+      min-width: 40px;
+    }
+    
+    .nav-image {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .nav-label {
+      font-size: 10px;
+    }
+    
+    .logo-image {
+      max-height: 40px;
+    }
+    
+   
+    
+    .dropdown-menu {
+        position: absolute;
+        top: 50px; /* Adjust this if necessary */
+        right: 0;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        z-index: 9999;
+        padding: 10px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .nav-links {
+      display: none; /* Hide nav links on very small screens */
+    }
+    
+    .logo-container {
+      flex-grow: 1;
+    }
+    
+    .profile-dropdown-container {
+        position: relative; /* Ensure parent is relative */
+        display: inline-block;
+    
+    }
+  }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../assets/KeralaMatrimonyProfile.css";
+import NavbarMatrimony from "../components/NavbarMatrimony";
 
 const KeralaMatrimonyProfile = () => {
   const [user, setUser] = useState({
@@ -60,7 +61,11 @@ const KeralaMatrimonyProfile = () => {
   };
 
   return (
+
+   
+
     <div className="profile-container">
+      <NavbarMatrimony/>
       {/* Sidebar */}
       <aside className="sidebar">
         <h3>{user.name || "User"}</h3>

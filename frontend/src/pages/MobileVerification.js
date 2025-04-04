@@ -6,8 +6,9 @@ import { useParams } from "react-router-dom";
 // Base URL correction
 axios.defaults.baseURL = "http://localhost:5000"; // Removed "/api" from base URL
 
-const generateUniqueID = () =>
-  Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
+
+
 
 const generateCaptcha = () => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -32,6 +33,7 @@ const MobileVerification = () => {
     if (userId) {
       axios
         .get(`/api/users/${userId}`)
+        
         .then((res) => {
           setPhone(res.data.phone);
           setEmail(res.data.email);
@@ -44,6 +46,9 @@ const MobileVerification = () => {
   const sendOtp = async () => {
     try {
       await axios.post("/api/send-otp", { phone });
+      alert("OTP resent successfully");
+      setOtp("");
+
       alert("OTP sent successfully!");
     } catch (error) {
       console.error("Error sending OTP:", error.response?.data || error.message);
@@ -70,11 +75,17 @@ const MobileVerification = () => {
 
     try {
       const res = await axios.post("/api/verify", { phone, otp });
+  
+   
+      setUniqueID(res.data.uniqueId); 
+  
       alert(res.data.message);
-      setStep(2); // Move to Email Verification
+      setStep(2); 
     } catch (error) {
       console.error(error);
-      alert(`Invalid OTP. ${attempts - 1} attempts remaining.`);
+      alert(`Invalid OTP. ${attempts - 1 <= 0 ? 0 : attempts - 1} attempts remaining.`);
+
+  
     }
   };
 
@@ -97,7 +108,7 @@ const MobileVerification = () => {
     }
 
     try {
-      const res = await axios.post("/api/verify-email-otp", { email, emailOtp });
+      const res = await axios.post("/api/verify-email-otp", { email, otp: emailOtp });
       alert(res.data.message);
       setStep(3); // Move to Captcha Verification
     } catch (error) {
@@ -106,17 +117,25 @@ const MobileVerification = () => {
     }
   };
 
-  // Captcha Verification
-  const handleCaptchaVerify = () => {
+  const handleCaptchaVerify = async () => {
     if (captchaInput !== captcha) {
       alert("Incorrect Captcha. Try again.");
-      setCaptcha(generateCaptcha());
       setCaptchaInput("");
       return;
     }
-    setUniqueID(generateUniqueID());
-    setStep(4); // Registration Successful
+  
+    try {
+      const res = await axios.get(`/api/users/${userId}`); // Fetch from DB
+  
+      setUniqueID(res.data.uniqueId);
+      setStep(4); // Move to final step
+    } catch (error) {
+      console.error("Error fetching uniqueId:", error.message);
+      alert("Something went wrong. Please try again.");
+    }
   };
+  
+
 
   return (
     <div className="mobile-verification-container">
@@ -194,7 +213,8 @@ const MobileVerification = () => {
         {step === 4 && (
           <>
             <h2>Registration Successful!</h2>
-            <p>Your unique ID: <strong>{uniqueID}</strong></p>
+            <p>Your unique ID: <strong>{!uniqueID ? "Loading your ID..." : uniqueID}</strong></p>
+
             <p>Welcome to Kerala Matrimony!</p>
           </>
         )}
